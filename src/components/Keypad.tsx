@@ -1,6 +1,19 @@
 import React from 'react';
 import { Undo2, Eraser, Pencil, Lightbulb } from 'lucide-react';
 
+interface KeypadStrings {
+  undo: string;
+  undoTitle: string;
+  erase: string;
+  eraseTitle: string;
+  notes: string;
+  notesTitle: string;
+  notesOn: string;
+  notesOff: string;
+  hint: string;
+  hintTitle: string;
+}
+
 interface KeypadProps {
   notesMode: boolean;
   onNumberClick: (num: number) => void;
@@ -10,6 +23,7 @@ interface KeypadProps {
   onHint: () => void;
   canUndo: boolean;
   remainingCounts: Record<number, number>;
+  strings: KeypadStrings;
 }
 
 export const Keypad: React.FC<KeypadProps> = ({
@@ -21,6 +35,7 @@ export const Keypad: React.FC<KeypadProps> = ({
   onHint,
   canUndo,
   remainingCounts,
+  strings,
 }) => {
   return (
     <div className="controls-container">
@@ -30,38 +45,38 @@ export const Keypad: React.FC<KeypadProps> = ({
           className={`action-btn ${canUndo ? '' : 'disabled'}`}
           onClick={onUndo}
           disabled={!canUndo}
-          title="Deshacer jugada"
+          title={strings.undoTitle}
           style={{ opacity: canUndo ? 1 : 0.5 }}
         >
           <Undo2 size={22} />
-          <span>Deshacer</span>
+          <span>{strings.undo}</span>
         </button>
 
         <button
           className="action-btn"
           onClick={onErase}
-          title="Borrar celda"
+          title={strings.eraseTitle}
         >
           <Eraser size={22} />
-          <span>Borrar</span>
+          <span>{strings.erase}</span>
         </button>
 
         <button
           className={`action-btn ${notesMode ? 'active' : ''}`}
           onClick={onToggleNotes}
-          title="Modo Notas (Lápiz)"
+          title={strings.notesTitle}
         >
           <Pencil size={22} />
-          <span>Notas {notesMode ? 'ON' : 'OFF'}</span>
+          <span>{strings.notes} {notesMode ? strings.notesOn : strings.notesOff}</span>
         </button>
 
         <button
           className="action-btn"
           onClick={onHint}
-          title="Pedir pista"
+          title={strings.hintTitle}
         >
           <Lightbulb size={22} />
-          <span>Pista</span>
+          <span>{strings.hint}</span>
         </button>
       </div>
 

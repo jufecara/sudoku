@@ -6,6 +6,8 @@ import { generateSudoku } from './utils/sudokuGenerator';
 import type { Difficulty } from './utils/sudokuGenerator';
 import { PWAPrompt } from './components/PWAPrompt';
 import { Trophy, RefreshCw } from 'lucide-react';
+import type { Locale } from './i18n';
+import { getInitialLocale, getTranslations } from './i18n';
 
 interface GameState {
   board: number[][];
@@ -69,6 +71,10 @@ function App() {
 
   // Theme Settings
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  // Language Settings
+  const [locale] = useState<Locale>(getInitialLocale);
+  const strings = getTranslations(locale);
 
   // Stats LocalStorage
   const [stats, setStats] = useState<Stats>(initialStats);
@@ -528,6 +534,7 @@ function App() {
     <div className="app-container">
       <Header
         difficulty={difficulty}
+        difficultyLabel={strings.difficultyLabels[difficulty]}
         timer={timer}
         mistakes={mistakes}
         maxMistakes={MAX_MISTAKES}
@@ -536,6 +543,7 @@ function App() {
         onRestart={handleRestart}
         onBackToMenu={() => setView('home')}
         view={view}
+        strings={strings.header}
       />
 
       {view === 'home' && (
@@ -635,6 +643,7 @@ function App() {
                 onHint={handleHint}
                 canUndo={history.length > 0}
                 remainingCounts={getRemainingCounts()}
+                strings={strings.keypad}
               />
             </>
           )}
@@ -692,7 +701,7 @@ function App() {
       )}
 
       {/* PWA registration prompt toast */}
-      <PWAPrompt />
+      <PWAPrompt strings={strings.pwa}/>
     </div>
   );
 }

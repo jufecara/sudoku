@@ -1,8 +1,18 @@
 import React from 'react';
 import { Sun, Moon, ArrowLeft, RotateCcw, Trophy } from 'lucide-react';
 
+interface HeaderStrings {
+  backToMenu: string;
+  elapsedTime: string;
+  mistakes: string;
+  restartGame: string;
+  achievements: string;
+  changeTheme: string;
+}
+
 interface HeaderProps {
   difficulty: string;
+  difficultyLabel: string;
   timer: number;
   mistakes: number;
   maxMistakes: number;
@@ -11,10 +21,12 @@ interface HeaderProps {
   onRestart: () => void;
   onBackToMenu: () => void;
   view: 'home' | 'play' | 'stats';
+  strings: HeaderStrings;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   difficulty,
+  difficultyLabel,
   timer,
   mistakes,
   maxMistakes,
@@ -23,6 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
   onRestart,
   onBackToMenu,
   view,
+  strings,
 }) => {
   // Format seconds to mm:ss
   const formatTime = (secs: number) => {
@@ -34,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="app-header glass-panel">
       {view === 'play' ? (
-        <button className="icon-btn" onClick={onBackToMenu} title="Volver al menú">
+        <button className="icon-btn" onClick={onBackToMenu} title={strings.backToMenu}>
           <ArrowLeft size={20} />
         </button>
       ) : (
@@ -47,13 +60,13 @@ export const Header: React.FC<HeaderProps> = ({
       {view === 'play' && (
         <div className="game-stats-hud">
           <span className={`difficulty-badge difficulty-${difficulty}`}>
-            {difficulty}
+            {difficultyLabel}
           </span>
-          <div className="hud-item" title="Tiempo transcurrido">
+          <div className="hud-item" title={strings.elapsedTime}>
             <span>⏱️</span>
             <span>{formatTime(timer)}</span>
           </div>
-          <div className="hud-item" title="Errores cometidos">
+          <div className="hud-item" title={strings.mistakes}>
             <span>⚠️</span>
             <span>{mistakes}/{maxMistakes}</span>
           </div>
@@ -62,16 +75,16 @@ export const Header: React.FC<HeaderProps> = ({
 
       <div className="header-actions">
         {view === 'play' && (
-          <button className="icon-btn" onClick={onRestart} title="Reiniciar juego">
+          <button className="icon-btn" onClick={onRestart} title={strings.restartGame}>
             <RotateCcw size={18} />
           </button>
         )}
         {view === 'home' && (
-          <button className="icon-btn" title="Logros">
+          <button className="icon-btn" title={strings.achievements}>
             <Trophy size={18} />
           </button>
         )}
-        <button className="icon-btn" onClick={toggleTheme} title="Cambiar tema">
+        <button className="icon-btn" onClick={toggleTheme} title={strings.changeTheme}>
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
       </div>

@@ -1,7 +1,17 @@
 import React from 'react';
 import { useRegisterSW } from 'virtual:pwa-register/react';
 
-export const PWAPrompt: React.FC = () => {
+interface PWAPromptStrings {
+    offlineReady: string;
+    updateAvailable: string;
+    update: string;
+    close: string;
+}
+interface PWAPromptProps {
+    strings: PWAPromptStrings
+}
+
+export const PWAPrompt: React.FC<PWAPromptProps> = ({ strings }) => {
   const {
     offlineReady: [offlineReady, setOfflineReady],
     needRefresh: [needRefresh, setNeedRefresh],
@@ -28,9 +38,9 @@ export const PWAPrompt: React.FC = () => {
     <div className="pwa-toast glass-panel">
       <div className="toast-message">
         {offlineReady ? (
-          <span>¡La aplicación está lista para funcionar sin conexión! 📶</span>
+          <span>{strings.offlineReady}</span>
         ) : (
-          <span>Hay contenido nuevo disponible, por favor actualiza para ver los cambios. ✨</span>
+          <span>{strings.updateAvailable}</span>
         )}
       </div>
       <div className="toast-actions">
@@ -39,14 +49,14 @@ export const PWAPrompt: React.FC = () => {
             className="toast-btn toast-btn-primary"
             onClick={() => updateServiceWorker(true)}
           >
-            Actualizar
+            {strings.update}
           </button>
         )}
         <button
           className="toast-btn toast-btn-secondary"
           onClick={close}
         >
-          Cerrar
+          {strings.close}
         </button>
       </div>
     </div>
