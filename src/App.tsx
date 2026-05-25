@@ -73,6 +73,9 @@ function App() {
   // Stats LocalStorage
   const [stats, setStats] = useState<Stats>(initialStats);
 
+  // Check if a saved game exists
+  const [hasSavedGame, setHasSavedGame] = useState(false);
+
   // Timer Ref
   const timerIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -95,6 +98,32 @@ function App() {
       }
     }
   }, []);
+
+  // Check if a saved game exists in localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('sudoku-saved-game');
+    setHasSavedGame(!!saved);
+  }, [view, hasWon, isGameOver]);
+
+  // Persist game state to localStorage
+  useEffect(() => {
+    if (view === 'play' && !hasWon && !isGameOver) {
+      const stateToSave = {
+        difficulty,
+        initialBoard,
+        board,
+        solvedBoard,
+        notes,
+        errors,
+        mistakes,
+        timer,
+        history,
+      };
+      localStorage.setItem('sudoku-saved-game', JSON.stringify(stateToSave));
+    } else if (hasWon || isGameOver) {
+      localStorage.removeItem('sudoku-saved-game');
+    }
+  }, [view, difficulty, initialBoard, board, solvedBoard, notes, errors, mistakes, timer, history, hasWon, isGameOver]);
 
   // Timer Logic
   useEffect(() => {
@@ -160,6 +189,33 @@ function App() {
 
     setView('play');
     setShowDifficultySelect(false);
+  };
+
+  const resumeSavedGame = () => {
+    const saved = localStorage.getItem('sudoku-saved-game');
+    if (!saved) return;
+    try {
+      const parsed = JSON.parse(saved);
+      setDifficulty(parsed.difficulty);
+      setInitialBoard(parsed.initialBoard);
+      setBoard(parsed.board);
+      setSolvedBoard(parsed.solvedBoard);
+      setNotes(parsed.notes);
+      setErrors(parsed.errors);
+      setMistakes(parsed.mistakes);
+      setTimer(parsed.timer);
+      setHistory(parsed.history || []);
+      
+      setSelectedCell(null);
+      setNotesMode(false);
+      setHasWon(false);
+      setIsGameOver(false);
+      setView('play');
+    } catch (e) {
+      console.error('Error resuming saved game:', e);
+      localStorage.removeItem('sudoku-saved-game');
+      setHasSavedGame(false);
+    }
   };
 
   const handleRestart = () => {
@@ -492,8 +548,21 @@ function App() {
 
           {!showDifficultySelect ? (
             <div className="menu-options">
+              {hasSavedGame && (
+                <button
+                  className="primary-btn"
+                  onClick={resumeSavedGame}
+                  style={{
+                    background: 'linear-gradient(135deg, var(--color-primary), var(--color-info))',
+                    boxShadow: 'var(--shadow-glow)',
+                    marginBottom: '8px'
+                  }}
+                >
+                  Continuar Partida
+                </button>
+              )}
               <button
-                className="primary-btn"
+                className={hasSavedGame ? 'secondary-btn' : 'primary-btn'}
                 onClick={() => setShowDifficultySelect(true)}
               >
                 Nueva Partida
