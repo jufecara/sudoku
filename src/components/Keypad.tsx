@@ -9,6 +9,7 @@ interface KeypadProps {
   onToggleNotes: () => void;
   onHint: () => void;
   canUndo: boolean;
+  remainingCounts: Record<number, number>;
 }
 
 export const Keypad: React.FC<KeypadProps> = ({
@@ -19,6 +20,7 @@ export const Keypad: React.FC<KeypadProps> = ({
   onToggleNotes,
   onHint,
   canUndo,
+  remainingCounts,
 }) => {
   return (
     <div className="controls-container">
@@ -65,15 +67,21 @@ export const Keypad: React.FC<KeypadProps> = ({
 
       {/* Number entry grid (1-9) */}
       <div className="numpad">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-          <button
-            key={num}
-            className="numpad-btn"
-            onClick={() => onNumberClick(num)}
-          >
-            {num}
-          </button>
-        ))}
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+          const remaining = remainingCounts[num] ?? 9;
+          const isDisabled = remaining <= 0;
+          return (
+            <button
+              key={num}
+              className="numpad-btn"
+              onClick={() => onNumberClick(num)}
+              disabled={isDisabled}
+            >
+              {num}
+              <span className="numpad-btn-badge">{remaining}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -450,6 +450,24 @@ function App() {
     localStorage.removeItem('sudoku-stats');
   };
 
+  const getRemainingCounts = () => {
+    const counts: Record<number, number> = {
+      1: 9, 2: 9, 3: 9, 4: 9, 5: 9, 6: 9, 7: 9, 8: 9, 9: 9
+    };
+    for (let r = 0; r < 9; r++) {
+      for (let c = 0; c < 9; c++) {
+        const val = board[r][c];
+        if (val >= 1 && val <= 9) {
+          counts[val]--;
+        }
+      }
+    }
+    for (let i = 1; i <= 9; i++) {
+      if (counts[i] < 0) counts[i] = 0;
+    }
+    return counts;
+  };
+
   return (
     <div className="app-container">
       <Header
@@ -547,6 +565,7 @@ function App() {
                 onToggleNotes={() => setNotesMode(!notesMode)}
                 onHint={handleHint}
                 canUndo={history.length > 0}
+                remainingCounts={getRemainingCounts()}
               />
             </>
           )}

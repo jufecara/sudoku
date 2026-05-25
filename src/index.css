@@ -440,6 +440,7 @@ h1, h2, h3, .font-display {
 }
 
 .numpad-btn {
+  position: relative;
   aspect-ratio: 1;
   background: var(--bg-card);
   border: 1px solid var(--border-glass);
@@ -465,6 +466,45 @@ h1, h2, h3, .font-display {
 
 .numpad-btn:active {
   transform: translateY(0);
+}
+
+.numpad-btn:disabled {
+  opacity: 0.15;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: var(--border-glass) !important;
+  background: rgba(15, 23, 42, 0.1) !important;
+}
+
+.numpad-btn-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+[data-theme="light"] .numpad-btn-badge {
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.numpad-btn:hover .numpad-btn-badge {
+  background: var(--color-primary-glow);
+  color: var(--color-primary);
+}
+
+.numpad-btn:disabled .numpad-btn-badge {
+  display: none;
 }
 
 /* Modals & Screens */
