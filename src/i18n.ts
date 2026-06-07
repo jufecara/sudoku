@@ -93,8 +93,8 @@ export const translations = {
       hintTitle: 'Request hint',
     },
     pwa: {
-      offlineReady: 'The app is ready to work offline! 📶',
-      updateAvailable: 'New content is available, please refresh to see the changes. ✨',
+      offlineReady: 'The app is ready to work offline!',
+      updateAvailable: 'A new app version is available.',
       update: 'Update',
       close: 'Close',
     },
@@ -152,8 +152,8 @@ export const translations = {
       hintTitle: 'Pedir pista',
     },
     pwa: {
-      offlineReady: '¡La aplicación está lista para funcionar sin conexión! 📶',
-      updateAvailable: 'Hay contenido nuevo disponible, por favor actualiza para ver los cambios. ✨',
+      offlineReady: '¡La aplicación está lista para funcionar sin conexión!',
+      updateAvailable: 'Hay una nueva versión de la aplicación disponible.',
       update: 'Actualizar',
       close: 'Cerrar',
     },
@@ -211,8 +211,8 @@ export const translations = {
       hintTitle: 'Demander un indice',
     },
     pwa: {
-      offlineReady: 'L’application est prête à fonctionner hors ligne ! 📶',
-      updateAvailable: 'Nouveaux contenus disponibles, veuillez actualiser pour voir les changements. ✨',
+      offlineReady: 'L’application est prête à fonctionner hors ligne !',
+      updateAvailable: 'Une nouvelle version de l’application est disponible.',
       update: 'Actualiser',
       close: 'Fermer',
     },
@@ -270,8 +270,8 @@ export const translations = {
       hintTitle: 'Pedir dica',
     },
     pwa: {
-      offlineReady: 'O aplicativo está pronto para funcionar offline! 📶',
-      updateAvailable: 'Conteúdo novo disponível, atualize para ver as mudanças. ✨',
+      offlineReady: 'O aplicativo está pronto para funcionar offline!',
+      updateAvailable: 'Uma nova versão do aplicativo está disponível.',
       update: 'Atualizar',
       close: 'Fechar',
     },
