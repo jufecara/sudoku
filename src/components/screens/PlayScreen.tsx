@@ -1,0 +1,96 @@
+import React from 'react';
+import { SudokuBoard } from '../SudokuBoard';
+import { Keypad } from '../Keypad';
+import type { Difficulty } from '../../utils/sudokuGenerator';
+
+interface PlayScreenProps {
+  isGameOver: boolean;
+  hasWon: boolean;
+  board: number[][];
+  initialBoard: number[][];
+  selectedCell: { row: number; col: number } | null;
+  notes: number[][][];
+  errors: boolean[][];
+  handleCellClick: (row: number, col: number) => void;
+  startNewGame: (diff: Difficulty) => void;
+  difficulty: Difficulty;
+  handleRestart: () => void;
+  setView: (view: 'home' | 'play' | 'stats') => void;
+  notesMode: boolean;
+  handleNumberInput: (val: number) => void;
+  handleUndo: () => void;
+  handleErase: () => void;
+  toggleNotesMode: () => void;
+  handleHint: () => void;
+  historyLength: number;
+  remainingCounts: Record<number, number>;
+  strings: any;
+  maxMistakes: number;
+}
+
+export const PlayScreen: React.FC<PlayScreenProps> = ({
+  isGameOver,
+  hasWon,
+  board,
+  initialBoard,
+  selectedCell,
+  notes,
+  errors,
+  handleCellClick,
+  startNewGame,
+  difficulty,
+  handleRestart,
+  setView,
+  notesMode,
+  handleNumberInput,
+  handleUndo,
+  handleErase,
+  toggleNotesMode,
+  handleHint,
+  historyLength,
+  remainingCounts,
+  strings,
+  maxMistakes
+}) => {
+  return (
+    <main style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1, justifyContent: 'center' }}>
+      {isGameOver ? (
+        <div className="glass-panel" style={{ padding: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <h2 className="font-display" style={{ color: 'var(--color-error)', fontSize: '2rem' }}>Fin del Juego 😢</h2>
+          <p style={{ color: 'var(--text-secondary)' }}>Has cometido {maxMistakes} errores. ¡Vuelve a intentarlo!</p>
+          <button className="primary-btn" onClick={handleRestart}>
+            Reintentar
+          </button>
+          <button className="secondary-btn" onClick={() => setView('home')}>
+            Menú Principal
+          </button>
+        </div>
+      ) : (
+        <>
+          <SudokuBoard
+            board={board}
+            initialBoard={initialBoard}
+            selectedCell={selectedCell}
+            notes={notes}
+            errors={errors}
+            onCellClick={handleCellClick}
+            hasWon={hasWon}
+            onRestart={() => startNewGame(difficulty)}
+          />
+
+          <Keypad
+            notesMode={notesMode}
+            onNumberClick={handleNumberInput}
+            onUndo={handleUndo}
+            onErase={handleErase}
+            onToggleNotes={toggleNotesMode}
+            onHint={handleHint}
+            canUndo={historyLength > 0}
+            remainingCounts={remainingCounts}
+            strings={strings}
+          />
+        </>
+      )}
+    </main>
+  );
+};
