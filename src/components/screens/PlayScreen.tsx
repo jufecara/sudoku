@@ -1,6 +1,7 @@
 import React from 'react';
 import { SudokuBoard } from '../SudokuBoard';
 import { Keypad } from '../Keypad';
+import { useTranslation } from '../../hooks/useTranslation';
 import type { Difficulty } from '../../utils/sudokuGenerator';
 
 interface PlayScreenProps {
@@ -15,7 +16,7 @@ interface PlayScreenProps {
   startNewGame: (diff: Difficulty) => void;
   difficulty: Difficulty;
   handleRestart: () => void;
-  setView: (view: 'home' | 'play' | 'stats') => void;
+  setView: (view: 'home' | 'play' | 'stats' | 'settings') => void;
   notesMode: boolean;
   handleNumberInput: (val: number) => void;
   handleUndo: () => void;
@@ -25,7 +26,6 @@ interface PlayScreenProps {
   historyLength: number;
   remainingCounts: Record<number, number>;
   hintsAvailable: number;
-  strings: any;
   maxMistakes: number;
 }
 
@@ -51,20 +51,21 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
   historyLength,
   remainingCounts,
   hintsAvailable,
-  strings,
   maxMistakes
 }) => {
+  const { t } = useTranslation();
+
   return (
     <main style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1, justifyContent: 'center' }}>
       {isGameOver ? (
         <div className="glass-panel" style={{ padding: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h2 className="font-display" style={{ color: 'var(--color-error)', fontSize: '2rem' }}>Fin del Juego 😢</h2>
-          <p style={{ color: 'var(--text-secondary)' }}>Has cometido {maxMistakes} errores. ¡Vuelve a intentarlo!</p>
+          <h2 className="font-display" style={{ color: 'var(--color-error)', fontSize: '2rem' }}>{t.gameOverTitle}</h2>
+          <p style={{ color: 'var(--text-secondary)' }}>{t.gameOverMessage(maxMistakes)}</p>
           <button className="primary-btn" onClick={handleRestart}>
-            Reintentar
+            {t.retry}
           </button>
           <button className="secondary-btn" onClick={() => setView('home')}>
-            Menú Principal
+            {t.mainMenu}
           </button>
         </div>
       ) : (
@@ -90,7 +91,6 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
             canUndo={historyLength > 0}
             remainingCounts={remainingCounts}
             hintsAvailable={hintsAvailable}
-            strings={strings}
           />
         </>
       )}

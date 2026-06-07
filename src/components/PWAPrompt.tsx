@@ -1,19 +1,11 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useRegisterSW } from 'virtual:pwa-register/react';
+import { useTranslation } from '../hooks/useTranslation';
 
 const UPDATE_CHECK_INTERVAL = 60 * 60 * 1000;
 
-interface PWAPromptStrings {
-    offlineReady: string;
-    updateAvailable: string;
-    update: string;
-    close: string;
-}
-interface PWAPromptProps {
-    strings: PWAPromptStrings
-}
-
-export const PWAPrompt: React.FC<PWAPromptProps> = ({ strings }) => {
+export const PWAPrompt: React.FC = () => {
+  const { t } = useTranslation();
   const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
 
   const checkForUpdate = useCallback(() => {
@@ -76,9 +68,9 @@ export const PWAPrompt: React.FC<PWAPromptProps> = ({ strings }) => {
     <div className="pwa-toast glass-panel">
       <div className="toast-message">
         {offlineReady ? (
-          <span>{strings.offlineReady}</span>
+          <span>{t.pwa.offlineReady}</span>
         ) : (
-          <span>{strings.updateAvailable}</span>
+          <span>{t.pwa.updateAvailable}</span>
         )}
       </div>
       <div className="toast-actions">
@@ -87,14 +79,14 @@ export const PWAPrompt: React.FC<PWAPromptProps> = ({ strings }) => {
             className="toast-btn toast-btn-primary"
             onClick={() => updateServiceWorker(true)}
           >
-            {strings.update}
+            {t.pwa.update}
           </button>
         )}
         <button
           className="toast-btn toast-btn-secondary"
           onClick={close}
         >
-          {strings.close}
+          {t.pwa.close}
         </button>
       </div>
     </div>

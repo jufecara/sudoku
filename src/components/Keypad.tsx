@@ -1,18 +1,6 @@
 import React from 'react';
 import { Undo2, Eraser, Pencil, Lightbulb } from 'lucide-react';
-
-interface KeypadStrings {
-  undo: string;
-  undoTitle: string;
-  erase: string;
-  eraseTitle: string;
-  notes: string;
-  notesTitle: string;
-  notesOn: string;
-  notesOff: string;
-  hint: string;
-  hintTitle: string;
-}
+import { useTranslation } from '../hooks/useTranslation';
 
 interface KeypadProps {
   notesMode: boolean;
@@ -24,7 +12,6 @@ interface KeypadProps {
   canUndo: boolean;
   remainingCounts: Record<number, number>;
   hintsAvailable: number;
-  strings: KeypadStrings;
 }
 
 export const Keypad: React.FC<KeypadProps> = ({
@@ -37,8 +24,8 @@ export const Keypad: React.FC<KeypadProps> = ({
   canUndo,
   remainingCounts,
   hintsAvailable,
-  strings,
 }) => {
+  const { t } = useTranslation();
   const hintsDisabled = hintsAvailable <= 0;
   
   return (
@@ -49,40 +36,40 @@ export const Keypad: React.FC<KeypadProps> = ({
           className={`action-btn ${canUndo ? '' : 'disabled'}`}
           onClick={onUndo}
           disabled={!canUndo}
-          title={strings.undoTitle}
+          title={t.keypad.undoTitle}
           style={{ opacity: canUndo ? 1 : 0.5 }}
         >
           <Undo2 size={22} />
-          <span>{strings.undo}</span>
+          <span>{t.keypad.undo}</span>
         </button>
 
         <button
           className="action-btn"
           onClick={onErase}
-          title={strings.eraseTitle}
+          title={t.keypad.eraseTitle}
         >
           <Eraser size={22} />
-          <span>{strings.erase}</span>
+          <span>{t.keypad.erase}</span>
         </button>
 
         <button
           className={`action-btn ${notesMode ? 'active' : ''}`}
           onClick={onToggleNotes}
-          title={strings.notesTitle}
+          title={t.keypad.notesTitle}
         >
           <Pencil size={22} />
-          <span>{notesMode ? strings.notesOn : strings.notesOff}</span>
+          <span>{notesMode ? t.keypad.notesOn : t.keypad.notesOff}</span>
         </button>
 
         <button
           className={`action-btn ${hintsDisabled ? 'disabled' : ''}`}
           onClick={onHint}
           disabled={hintsDisabled}
-          title={strings.hintTitle}
+          title={t.keypad.hintTitle}
           style={{ opacity: hintsDisabled ? 0.5 : 1 }}
         >
           <Lightbulb size={22} />
-          <span>{strings.hint}</span>
+          <span>{t.keypad.hint}</span>
           {hintsAvailable > 0 && (
             <span className="action-btn-badge">{hintsAvailable}</span>
           )}
