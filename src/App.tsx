@@ -47,6 +47,7 @@ function App() {
     history: engine.history,
     hasWon: engine.hasWon,
     isGameOver: engine.isGameOver,
+    hintsAvailable: engine.hintsAvailable,
   };
 
   const { hasSavedGame, resumeSavedGame } = useGamePersistence(stateToSave, (parsed) => {
@@ -59,6 +60,7 @@ function App() {
     engine.setMistakes(parsed.mistakes);
     setTimerValue(parsed.timer);
     engine.setHistory(parsed.history || []);
+    engine.setHintsAvailable(parsed.hintsAvailable ?? 3);
     
     engine.setSelectedCell(null);
     engine.setNotesMode(false);
@@ -150,6 +152,7 @@ function App() {
           handleHint={engine.handleHint}
           historyLength={engine.history.length}
           remainingCounts={engine.getRemainingCounts()}
+          hintsAvailable={engine.hintsAvailable}
           strings={strings.keypad}
           maxMistakes={MAX_MISTAKES}
         />

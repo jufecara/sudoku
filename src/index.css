@@ -41,12 +41,12 @@
   --cell-border-thick: rgba(255, 255, 255, 0.2);
 
   /* Shadows and Blurs */
-  --shadow-premium: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
-  --blur-glass: 16px;
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --radius-sm: 8px;
+  --shadow-premium: 0 0.5rem 2rem 0 rgba(0, 0, 0, 0.37);
+  --shadow-glow: 0 0 1.25rem rgba(139, 92, 246, 0.3);
+  --blur-glass: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-md: 1rem;
+  --radius-sm: 0.5rem;
 
   /* Transitions */
   --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,7 +78,7 @@
   --cell-border-color: rgba(15, 23, 42, 0.06);
   --cell-border-thick: rgba(15, 23, 42, 0.2);
   
-  --shadow-premium: 0 8px 32px 0 rgba(15, 23, 42, 0.08);
+  --shadow-premium: 0 0.5rem 2rem 0 rgba(15, 23, 42, 0.08);
 }
 
 /* Reset and Globals */
@@ -131,7 +131,7 @@ body {
   background: var(--bg-card);
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
-  border: 1px solid var(--border-glass);
+  border: 0.0625rem solid var(--border-glass);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-premium);
   transition: border-color var(--transition-normal), background var(--transition-normal);
@@ -153,22 +153,22 @@ h1, h2, h3, .font-display {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  height: 64px;
+  padding: 0.75rem 1rem;
+  height: 4rem;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .logo-icon {
   background: linear-gradient(135deg, var(--color-primary), var(--color-info));
   color: #fff;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,15 +192,15 @@ h1, h2, h3, .font-display {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .icon-btn {
   background: transparent;
-  border: 1px solid var(--border-glass);
+  border: 0.0625rem solid var(--border-glass);
   color: var(--text-primary);
-  width: 38px;
-  height: 38px;
+  width: 2.375rem;
+  height: 2.375rem;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -211,7 +211,7 @@ h1, h2, h3, .font-display {
 
 .icon-btn:hover {
   background: var(--border-glass);
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
 }
 
 .icon-btn:active {
@@ -223,52 +223,52 @@ h1, h2, h3, .font-display {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
+  padding: 0.5rem 0.75rem;
 }
 
 .difficulty-badge {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 0.25rem 0.625rem;
+  border-radius: 1.25rem;
   letter-spacing: 0.05em;
 }
 
 .difficulty-easy {
   background: rgba(16, 185, 129, 0.15);
   color: var(--color-success);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  border: 0.0625rem solid rgba(16, 185, 129, 0.2);
 }
 
 .difficulty-medium {
   background: rgba(245, 158, 11, 0.15);
   color: var(--color-warn);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  border: 0.0625rem solid rgba(245, 158, 11, 0.2);
 }
 
 .difficulty-hard {
   background: rgba(244, 63, 94, 0.15);
   color: var(--color-error);
-  border: 1px solid rgba(244, 63, 94, 0.2);
+  border: 0.0625rem solid rgba(244, 63, 94, 0.2);
 }
 
 .difficulty-expert {
   background: rgba(139, 92, 246, 0.15);
   color: var(--color-primary);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  border: 0.0625rem solid rgba(139, 92, 246, 0.2);
 }
 
 .game-stats-hud {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .hud-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
   font-size: 0.875rem;
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
@@ -301,7 +301,7 @@ h1, h2, h3, .font-display {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(9, 1fr);
-  border: 2px solid var(--cell-border-thick);
+  border: 0.125rem solid var(--cell-border-thick);
   border-radius: var(--radius-md);
   overflow: hidden;
   background: rgba(15, 23, 42, 0.3);
@@ -319,21 +319,21 @@ h1, h2, h3, .font-display {
   font-family: var(--font-display);
   font-size: clamp(1rem, 7cqw, 2rem);
   font-weight: 500;
-  border-right: 1px solid var(--cell-border-color);
-  border-bottom: 1px solid var(--cell-border-color);
+  border-right: 0.0625rem solid var(--cell-border-color);
+  border-bottom: 0.0625rem solid var(--cell-border-color);
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 /* Thicker borders for 3x3 grids */
 .sudoku-cell:nth-child(3n) {
-  border-right: 2px solid var(--cell-border-thick);
+  border-right: 0.125rem solid var(--cell-border-thick);
 }
 .sudoku-cell:nth-child(9n) {
   border-right: none;
 }
 .sudoku-cell:nth-child(n+19):nth-child(-n+27),
 .sudoku-cell:nth-child(n+46):nth-child(-n+54) {
-  border-bottom: 2px solid var(--cell-border-thick);
+  border-bottom: 0.125rem solid var(--cell-border-thick);
 }
 .sudoku-cell:nth-child(n+73) {
   border-bottom: none;
@@ -361,7 +361,7 @@ h1, h2, h3, .font-display {
 
 .sudoku-cell.selected {
   background-color: var(--cell-bg-selected) !important;
-  box-shadow: inset 0 0 0 2px var(--color-primary);
+  box-shadow: inset 0 0 0 0.125rem var(--color-primary);
   z-index: 2;
 }
 
@@ -377,7 +377,7 @@ h1, h2, h3, .font-display {
   grid-template-rows: repeat(3, 1fr);
   width: 100%;
   height: 100%;
-  padding: 2px;
+  padding: 0.125rem;
 }
 
 .note-num {
@@ -410,7 +410,7 @@ h1, h2, h3, .font-display {
   flex: 1;
   min-width: 4.5rem;
   background: var(--bg-card);
-  border: 1px solid var(--border-glass);
+  border: 0.0625rem solid var(--border-glass);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
   padding: 0.625rem 0.25rem;
@@ -423,12 +423,13 @@ h1, h2, h3, .font-display {
   font-weight: 500;
   font-family: var(--font-sans);
   transition: all var(--transition-fast);
+  position: relative;
 }
 
 .action-btn:hover {
   background: var(--bg-card-hover);
   color: var(--text-primary);
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
 }
 
 .action-btn:active {
@@ -443,18 +444,19 @@ h1, h2, h3, .font-display {
 
 .action-btn-badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: 0.25rem;
+  right: 0.25rem;
   background: var(--color-primary);
   color: #fff;
   border-radius: 50%;
-  width: 16px;
-  height: 16px;
+  width: 1.125rem;
+  height: 1.125rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 800;
+  box-shadow: 0 0 0.5rem rgba(139, 92, 246, 0.4);
 }
 
 .numpad {
@@ -470,7 +472,7 @@ h1, h2, h3, .font-display {
   aspect-ratio: 1;
   flex: 0 0 calc((100% - 4rem) / 9);
   background: var(--bg-card);
-  border: 1px solid var(--border-glass);
+  border: 0.0625rem solid var(--border-glass);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
   font-family: var(--font-display);
@@ -487,7 +489,7 @@ h1, h2, h3, .font-display {
 .numpad-btn:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-glass-active);
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
   box-shadow: var(--shadow-glow);
 }
 
@@ -506,15 +508,15 @@ h1, h2, h3, .font-display {
 
 .numpad-btn-badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 0.25rem;
+  right: 0.25rem;
   background: rgba(255, 255, 255, 0.1);
   color: var(--text-secondary);
   font-size: 0.65rem;
   font-weight: 700;
   border-radius: 50%;
-  width: 14px;
-  height: 14px;
+  width: 0.875rem;
+  height: 0.875rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -548,23 +550,23 @@ h1, h2, h3, .font-display {
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 40px;
-  padding: 24px;
+  gap: 2.5rem;
+  padding: 1.5rem;
 }
 
 .hero-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .hero-logo {
   background: linear-gradient(135deg, var(--color-primary), var(--color-info));
   color: #fff;
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -595,7 +597,7 @@ h1, h2, h3, .font-display {
 .menu-options {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
   width: 100%;
 }
 
@@ -603,7 +605,7 @@ h1, h2, h3, .font-display {
   background: var(--color-primary);
   color: white;
   border: none;
-  padding: 16px;
+  padding: 1rem;
   border-radius: var(--radius-md);
   font-family: var(--font-display);
   font-size: 1.1rem;
@@ -615,7 +617,7 @@ h1, h2, h3, .font-display {
 
 .primary-btn:hover {
   background: var(--color-primary-hover);
-  transform: translateY(-2px);
+  transform: translateY(-0.125rem);
 }
 
 .primary-btn:active {
@@ -625,8 +627,8 @@ h1, h2, h3, .font-display {
 .secondary-btn {
   background: var(--bg-card);
   color: var(--text-primary);
-  border: 1px solid var(--border-glass);
-  padding: 14px;
+  border: 0.0625rem solid var(--border-glass);
+  padding: 0.875rem;
   border-radius: var(--radius-md);
   font-family: var(--font-display);
   font-size: 1rem;
@@ -638,14 +640,14 @@ h1, h2, h3, .font-display {
 .secondary-btn:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-glass-active);
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
 }
 
 /* Difficulty Selector Dialog */
 .difficulty-selector {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
   width: 100%;
 }
 
@@ -653,9 +655,9 @@ h1, h2, h3, .font-display {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  padding: 1rem 1.25rem;
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-glass);
+  border: 0.0625rem solid var(--border-glass);
   background: var(--bg-card);
   color: var(--text-primary);
   cursor: pointer;
@@ -665,7 +667,7 @@ h1, h2, h3, .font-display {
 .diff-choice-btn:hover {
   border-color: var(--border-glass-active);
   background: var(--bg-card-hover);
-  transform: translateX(4px);
+  transform: translateX(0.25rem);
 }
 
 .diff-choice-title {
@@ -679,22 +681,22 @@ h1, h2, h3, .font-display {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 16px 8px;
+  gap: 1.5rem;
+  padding: 1rem 0.5rem;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 1rem;
 }
 
 .stat-card {
-  padding: 20px;
+  padding: 1.25rem;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .stat-value {
@@ -714,20 +716,20 @@ h1, h2, h3, .font-display {
 /* PWA update notification */
 .pwa-toast {
   position: fixed;
-  bottom: 24px;
-  left: 24px;
-  right: 24px;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
   z-index: 100;
-  padding: 16px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border-left: 4px solid var(--color-primary);
+  gap: 0.75rem;
+  border-left: 0.25rem solid var(--color-primary);
   animation: slideUp 0.3s ease-out;
 }
 
 @keyframes slideUp {
-  from { transform: translateY(100px); opacity: 0; }
+  from { transform: translateY(6.25rem); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
@@ -739,12 +741,12 @@ h1, h2, h3, .font-display {
 
 .toast-actions {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   justify-content: flex-end;
 }
 
 .toast-btn {
-  padding: 8px 12px;
+  padding: 0.5rem 0.75rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   font-weight: 600;
@@ -760,7 +762,7 @@ h1, h2, h3, .font-display {
 .toast-btn-secondary {
   background: transparent;
   color: var(--text-secondary);
-  border: 1px solid var(--border-glass);
+  border: 0.0625rem solid var(--border-glass);
 }
 
 /* Micro-animations */
@@ -782,13 +784,13 @@ h1, h2, h3, .font-display {
   right: 0;
   bottom: 0;
   background: rgba(9, 13, 22, 0.9);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(0.625rem);
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 1.25rem;
   z-index: 10;
   animation: fadeIn 0.4s ease-out;
 }
@@ -801,7 +803,7 @@ h1, h2, h3, .font-display {
 .win-title {
   font-size: 2rem;
   color: var(--color-success);
-  text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+  text-shadow: 0 0 0.625rem rgba(16, 185, 129, 0.3);
 }
 
 .win-subtitle {

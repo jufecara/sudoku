@@ -4,6 +4,13 @@ import type { Difficulty } from '../utils/sudokuGenerator';
 
 export const MAX_MISTAKES = 3;
 
+const HINTS_BY_DIFFICULTY: Record<Difficulty, number> = {
+  easy: 5,
+  medium: 3,
+  hard: 2,
+  expert: 1,
+};
+
 export interface GameStateSnapshot {
   board: number[][];
   notes: number[][][];
@@ -33,6 +40,7 @@ export function useSudokuEngine() {
   const [notesMode, setNotesMode] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [hintsAvailable, setHintsAvailable] = useState(0);
 
   const [history, setHistory] = useState<GameStateSnapshot[]>([]);
 
@@ -59,6 +67,7 @@ export function useSudokuEngine() {
     setHasWon(false);
     setIsGameOver(false);
     setHistory([]);
+    setHintsAvailable(HINTS_BY_DIFFICULTY[selectedDiff]);
   }, []);
 
   const handleRestart = useCallback(() => {
@@ -70,7 +79,8 @@ export function useSudokuEngine() {
     setHasWon(false);
     setIsGameOver(false);
     setHistory([]);
-  }, [initialBoard]);
+    setHintsAvailable(HINTS_BY_DIFFICULTY[difficulty]);
+  }, [initialBoard, difficulty]);
 
   const handleCellClick = useCallback((row: number, col: number) => {
     if (isGameOver || hasWon) return;
@@ -231,6 +241,8 @@ export function useSudokuEngine() {
 
   const handleHint = useCallback(() => {
     if (!selectedCell || isGameOver || hasWon) return;
+    if (hintsAvailable <= 0) return;
+    
     const { row, col } = selectedCell;
     if (initialBoard[row][col] !== 0) return;
 
@@ -250,6 +262,7 @@ export function useSudokuEngine() {
       return next;
     });
 
+    setHintsAvailable((prev) => Math.max(0, prev - 1));
     clearRelatedNotes(row, col, correctVal);
     
     setTimeout(() => {
@@ -258,7 +271,7 @@ export function useSudokuEngine() {
         return currentBoard;
       });
     }, 50);
-  }, [selectedCell, isGameOver, hasWon, initialBoard, pushHistory, board, solvedBoard, clearRelatedNotes, checkWinCondition]);
+  }, [selectedCell, isGameOver, hasWon, initialBoard, pushHistory, board, solvedBoard, clearRelatedNotes, checkWinCondition, hintsAvailable]);
 
   const getRemainingCounts = useCallback(() => {
     const counts: Record<number, number> = {
@@ -294,6 +307,7 @@ export function useSudokuEngine() {
     notesMode, setNotesMode, toggleNotesMode,
     hasWon, setHasWon,
     isGameOver, setIsGameOver,
+    hintsAvailable, setHintsAvailable,
     history, setHistory,
     startNewGame,
     handleRestart,

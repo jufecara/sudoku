@@ -24,6 +24,7 @@ interface PlayScreenProps {
   handleHint: () => void;
   historyLength: number;
   remainingCounts: Record<number, number>;
+  hintsAvailable: number;
   strings: any;
   maxMistakes: number;
 }
@@ -49,6 +50,7 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
   handleHint,
   historyLength,
   remainingCounts,
+  hintsAvailable,
   strings,
   maxMistakes
 }) => {
@@ -87,6 +89,7 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
             onHint={handleHint}
             canUndo={historyLength > 0}
             remainingCounts={remainingCounts}
+            hintsAvailable={hintsAvailable}
             strings={strings}
           />
         </>
