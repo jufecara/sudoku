@@ -77,6 +77,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </button>
         </div>
       )}
+      <span className="app-version" aria-label={`App version ${__APP_VERSION__}`}>
+        v{__APP_VERSION__}
+      </span>
     </main>
   );
 };
