@@ -23,6 +23,7 @@ interface KeypadProps {
   onHint: () => void;
   canUndo: boolean;
   remainingCounts: Record<number, number>;
+  hintsAvailable: number;
   strings: KeypadStrings;
 }
 
@@ -35,8 +36,11 @@ export const Keypad: React.FC<KeypadProps> = ({
   onHint,
   canUndo,
   remainingCounts,
+  hintsAvailable,
   strings,
 }) => {
+  const hintsDisabled = hintsAvailable <= 0;
+  
   return (
     <div className="controls-container">
       {/* Action panel (Undo, Erase, Notes, Hint) */}
@@ -67,16 +71,21 @@ export const Keypad: React.FC<KeypadProps> = ({
           title={strings.notesTitle}
         >
           <Pencil size={22} />
-          <span>{strings.notes} {notesMode ? strings.notesOn : strings.notesOff}</span>
+          <span>{notesMode ? strings.notesOn : strings.notesOff}</span>
         </button>
 
         <button
-          className="action-btn"
+          className={`action-btn ${hintsDisabled ? 'disabled' : ''}`}
           onClick={onHint}
+          disabled={hintsDisabled}
           title={strings.hintTitle}
+          style={{ opacity: hintsDisabled ? 0.5 : 1 }}
         >
           <Lightbulb size={22} />
           <span>{strings.hint}</span>
+          {hintsAvailable > 0 && (
+            <span className="action-btn-badge">{hintsAvailable}</span>
+          )}
         </button>
       </div>
 
