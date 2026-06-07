@@ -67,7 +67,7 @@ export const Keypad: React.FC<KeypadProps> = ({
           title={strings.notesTitle}
         >
           <Pencil size={22} />
-          <span>{strings.notes} {notesMode ? strings.notesOn : strings.notesOff}</span>
+          <span>{notesMode ? strings.notesOn : strings.notesOff}</span>
         </button>
 
         <button

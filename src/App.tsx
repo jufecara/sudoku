@@ -609,7 +609,7 @@ function App() {
       )}
 
       {view === 'play' && (
-        <main style={{ display: 'flex', flexDirection: 'column', gap: '16px', flex: 1, justifyContent: 'center' }}>
+        <main style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1, justifyContent: 'center' }}>
           {isGameOver ? (
             <div className="glass-panel" style={{ padding: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <h2 className="font-display" style={{ color: 'var(--color-error)', fontSize: '2rem' }}>Fin del Juego 😢</h2>
