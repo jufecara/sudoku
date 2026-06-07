@@ -4,27 +4,38 @@ import { PWAPrompt } from './components/PWAPrompt';
 import { HomeScreen } from './components/screens/HomeScreen';
 import { PlayScreen } from './components/screens/PlayScreen';
 import { StatsScreen } from './components/screens/StatsScreen';
+import { SettingsScreen } from './components/screens/SettingsScreen';
 
-import { useTheme } from './hooks/useTheme';
+import { useUserSettings } from './hooks/useUserSettings';
 import { useStats } from './hooks/useStats';
 import { useTimer } from './hooks/useTimer';
 import { useSudokuEngine, MAX_MISTAKES } from './hooks/useSudokuEngine';
 import { useGamePersistence } from './hooks/useGamePersistence';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation';
+import { useTranslation } from './hooks/useTranslation';
+import { I18nProvider } from './contexts/I18nContext';
 
 import type { Difficulty } from './utils/sudokuGenerator';
-import type { Locale } from './i18n';
-import { getInitialLocale, getTranslations } from './i18n';
 
 function App() {
-  // Global State
-  const [view, setView] = useState<'home' | 'play' | 'stats'>('home');
-  const [showDifficultySelect, setShowDifficultySelect] = useState(false);
-  const [locale] = useState<Locale>(getInitialLocale);
-  const strings = getTranslations(locale);
+  const userSettings = useUserSettings();
 
-  // Hooks
-  const { theme, toggleTheme } = useTheme();
+  return (
+    <I18nProvider locale={userSettings.language}>
+      <AppContent userSettings={userSettings} />
+    </I18nProvider>
+  );
+}
+
+interface AppContentProps {
+  userSettings: ReturnType<typeof useUserSettings>;
+}
+
+function AppContent({ userSettings }: AppContentProps) {
+  const [view, setView] = useState<'home' | 'play' | 'stats' | 'settings'>('home');
+  const [showDifficultySelect, setShowDifficultySelect] = useState(false);
+  const { t } = useTranslation();
+  const { theme, defaultDifficulty, toggleTheme } = userSettings;
   const { stats, incrementGamesPlayed, recordWin, resetStats } = useStats();
   
   const engine = useSudokuEngine();
@@ -101,7 +112,7 @@ function App() {
     <div className="app-container">
       <Header
         difficulty={engine.difficulty}
-        difficultyLabel={strings.difficultyLabels[engine.difficulty]}
+        difficultyLabel={t.difficultyLabels[engine.difficulty]}
         timer={timer}
         mistakes={engine.mistakes}
         maxMistakes={MAX_MISTAKES}
@@ -113,7 +124,6 @@ function App() {
         }}
         onBackToMenu={() => setView('home')}
         view={view}
-        strings={strings.header}
       />
 
       {view === 'home' && (
@@ -124,6 +134,7 @@ function App() {
           resumeSavedGame={resumeSavedGame}
           startNewGame={handleStartNewGame}
           setView={setView}
+          defaultDifficulty={defaultDifficulty}
         />
       )}
 
@@ -153,7 +164,6 @@ function App() {
           historyLength={engine.history.length}
           remainingCounts={engine.getRemainingCounts()}
           hintsAvailable={engine.hintsAvailable}
-          strings={strings.keypad}
           maxMistakes={MAX_MISTAKES}
         />
       )}
@@ -166,7 +176,19 @@ function App() {
         />
       )}
 
-      <PWAPrompt strings={strings.pwa}/>
+      {view === 'settings' && (
+        <SettingsScreen
+          defaultDifficulty={defaultDifficulty}
+          theme={theme}
+          setDefaultDifficulty={userSettings.setDefaultDifficulty}
+          setTheme={userSettings.setTheme}
+          language={userSettings.language}
+          setLanguage={userSettings.setLanguage}
+          setView={setView}
+        />
+      )}
+
+      <PWAPrompt />
     </div>
   );
 }

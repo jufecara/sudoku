@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 interface KeyboardNavigationProps {
-  view: 'home' | 'play' | 'stats';
+  view: 'home' | 'play' | 'stats' | 'settings';
   isGameOver: boolean;
   hasWon: boolean;
   selectedCell: { row: number; col: number } | null;

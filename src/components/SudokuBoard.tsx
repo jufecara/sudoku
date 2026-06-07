@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface SudokuBoardProps {
   board: number[][];
@@ -21,6 +22,8 @@ export const SudokuBoard: React.FC<SudokuBoardProps> = ({
   hasWon,
   onRestart,
 }) => {
+    const { t } = useTranslation();
+
   // Check if a cell is in the same row, column or 3x3 box as the selected cell
   const isHighlightedAxis = (r: number, c: number) => {
     if (!selectedCell) return false;
@@ -95,10 +98,10 @@ export const SudokuBoard: React.FC<SudokuBoardProps> = ({
 
         {hasWon && (
           <div className="win-overlay">
-            <h2 className="win-title font-display">¡Victoria! 🎉</h2>
-            <p className="win-subtitle">¡Has resuelto el Sudoku correctamente!</p>
+            <h2 className="win-title font-display">{t.victory.title}</h2>
+            <p className="win-subtitle">{t.victory.message}</p>
             <button className="primary-btn" onClick={onRestart}>
-              Jugar de nuevo
+              {t.victory.playAgain}
             </button>
           </div>
         )}
