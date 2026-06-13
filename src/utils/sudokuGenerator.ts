@@ -99,7 +99,7 @@ export const generateSudoku = (
   difficulty: Difficulty
 ): { initialBoard: number[][]; solvedBoard: number[][] } => {
   const solvedBoard = getSolvedBoard();
-  
+
   // Clone to make initialBoard
   const initialBoard = solvedBoard.map((row) => [...row]);
 

@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useGamePersistence(
-  stateToSave: any,
-  restoreCallback: (state: any) => void
-) {
+export function useGamePersistence(stateToSave: any, restoreCallback: (state: any) => void) {
   const [hasSavedGame, setHasSavedGame] = useState(false);
 
   // Check if a saved game exists

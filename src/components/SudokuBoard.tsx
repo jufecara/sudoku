@@ -22,7 +22,7 @@ export const SudokuBoard: React.FC<SudokuBoardProps> = ({
   hasWon,
   onRestart,
 }) => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   // Check if a cell is in the same row, column or 3x3 box as the selected cell
   const isHighlightedAxis = (r: number, c: number) => {
@@ -30,7 +30,7 @@ export const SudokuBoard: React.FC<SudokuBoardProps> = ({
     const { row, col } = selectedCell;
     if (r === row && c === col) return false; // Handled by selected cell state
     if (r === row || c === col) return true;
-    
+
     // Check 3x3 box
     const boxRowStart = Math.floor(row / 3) * 3;
     const boxColStart = Math.floor(col / 3) * 3;
@@ -56,26 +56,22 @@ export const SudokuBoard: React.FC<SudokuBoardProps> = ({
             const isAxis = isHighlightedAxis(rIndex, cIndex);
             const isSameVal = isSameValue(rIndex, cIndex);
             const isError = errors[rIndex][cIndex];
-            
+
             let cellClass = 'sudoku-cell';
             if (isOriginal) cellClass += ' original';
             else if (value !== 0) cellClass += ' user-entered';
-            
+
             if (isSelected) cellClass += ' selected';
             else if (isSameVal) cellClass += ' highlight-value';
             else if (isAxis) cellClass += ' highlight-axis';
-            
+
             if (isError) cellClass += ' error';
 
             // Helper to check if a number was popped (scale pop effect on entry)
             const cellKey = `cell-${rIndex}-${cIndex}`;
 
             return (
-              <div
-                key={cellKey}
-                className={cellClass}
-                onClick={() => onCellClick(rIndex, cIndex)}
-              >
+              <div key={cellKey} className={cellClass} onClick={() => onCellClick(rIndex, cIndex)}>
                 {value !== 0 ? (
                   <span>{value}</span>
                 ) : (

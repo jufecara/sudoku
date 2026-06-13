@@ -67,25 +67,15 @@ export const PWAPrompt: React.FC = () => {
   return (
     <div className="pwa-toast glass-panel">
       <div className="toast-message">
-        {offlineReady ? (
-          <span>{t.pwa.offlineReady}</span>
-        ) : (
-          <span>{t.pwa.updateAvailable}</span>
-        )}
+        {offlineReady ? <span>{t.pwa.offlineReady}</span> : <span>{t.pwa.updateAvailable}</span>}
       </div>
       <div className="toast-actions">
         {needRefresh && (
-          <button
-            className="toast-btn toast-btn-primary"
-            onClick={() => updateServiceWorker(true)}
-          >
+          <button className="toast-btn toast-btn-primary" onClick={() => updateServiceWorker(true)}>
             {t.pwa.update}
           </button>
         )}
-        <button
-          className="toast-btn toast-btn-secondary"
-          onClick={close}
-        >
+        <button className="toast-btn toast-btn-secondary" onClick={close}>
           {t.pwa.close}
         </button>
       </div>

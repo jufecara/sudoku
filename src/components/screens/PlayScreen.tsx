@@ -51,15 +51,34 @@ export const PlayScreen: React.FC<PlayScreenProps> = ({
   historyLength,
   remainingCounts,
   hintsAvailable,
-  maxMistakes
+  maxMistakes,
 }) => {
   const { t } = useTranslation();
 
   return (
-    <main style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1, justifyContent: 'center' }}>
+    <main
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.25rem',
+        flex: 1,
+        justifyContent: 'center',
+      }}
+    >
       {isGameOver ? (
-        <div className="glass-panel" style={{ padding: '32px', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <h2 className="font-display" style={{ color: 'var(--color-error)', fontSize: '2rem' }}>{t.gameOverTitle}</h2>
+        <div
+          className="glass-panel"
+          style={{
+            padding: '32px',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+          }}
+        >
+          <h2 className="font-display" style={{ color: 'var(--color-error)', fontSize: '2rem' }}>
+            {t.gameOverTitle}
+          </h2>
           <p style={{ color: 'var(--text-secondary)' }}>{t.gameOverMessage(maxMistakes)}</p>
           <button className="primary-btn" onClick={handleRestart}>
             {t.retry}

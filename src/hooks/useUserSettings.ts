@@ -55,7 +55,7 @@ const getInitialSettings = (): UserSettings => {
       theme: isTheme(parsed.theme) ? parsed.theme : defaultSettings.theme,
       language: isLocale(parsed.language)
         ? parsed.language
-        : getSavedLocale() ?? defaultSettings.language,
+        : (getSavedLocale() ?? defaultSettings.language),
     };
   } catch (e) {
     console.error('Error loading user settings from localStorage', e);

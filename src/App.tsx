@@ -37,9 +37,9 @@ function AppContent({ userSettings }: AppContentProps) {
   const { t } = useTranslation();
   const { theme, defaultDifficulty, toggleTheme } = userSettings;
   const { stats, incrementGamesPlayed, recordWin, resetStats } = useStats();
-  
+
   const engine = useSudokuEngine();
-  
+
   const { timer, resetTimer, setTimerValue } = useTimer(
     view === 'play' && !engine.hasWon && !engine.isGameOver
   );
@@ -72,7 +72,7 @@ function AppContent({ userSettings }: AppContentProps) {
     setTimerValue(parsed.timer);
     engine.setHistory(parsed.history || []);
     engine.setHintsAvailable(parsed.hintsAvailable ?? 3);
-    
+
     engine.setSelectedCell(null);
     engine.setNotesMode(false);
     engine.setHasWon(false);
@@ -85,7 +85,7 @@ function AppContent({ userSettings }: AppContentProps) {
     if (engine.hasWon && !engine.isGameOver) {
       recordWin(engine.difficulty, timer);
     }
-  }, [engine.hasWon]);
+  }, [engine.hasWon, engine.difficulty, engine.isGameOver, recordWin, timer]);
 
   // Handle new game
   const handleStartNewGame = (diff: Difficulty) => {
@@ -168,13 +168,7 @@ function AppContent({ userSettings }: AppContentProps) {
         />
       )}
 
-      {view === 'stats' && (
-        <StatsScreen
-          stats={stats}
-          setView={setView}
-          resetStats={resetStats}
-        />
-      )}
+      {view === 'stats' && <StatsScreen stats={stats} setView={setView} resetStats={resetStats} />}
 
       {view === 'settings' && (
         <SettingsScreen
