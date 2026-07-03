@@ -1,7 +1,7 @@
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
 
 // Generates a fully solved Sudoku board
-const getSolvedBoard = (): number[][] => {
+export const getSolvedBoard = (): number[][] => {
   const board: number[][] = Array(9)
     .fill(null)
     .map(() => Array(9).fill(0));

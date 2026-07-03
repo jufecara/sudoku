@@ -1,0 +1,7 @@
+issues:
+  newPackage:
+    action: error # block packages published < 30 days ago
+  installScripts:
+    action: warn
+  suspiciousPackage:
+    action: error

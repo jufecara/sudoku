@@ -59,7 +59,9 @@ export function useSudokuEngine() {
   const [history, setHistory] = useState<GameStateSnapshot[]>([]);
 
   useEffect(() => {
+    // TODO: FIX - This is a bit of a hack to avoid adding setIsGameOver to the dependency array, which would cause an infinite loop. We only want this effect to run when mistakes changes.
     if (mistakes >= MAX_MISTAKES) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsGameOver(true);
     }
   }, [mistakes]);
@@ -244,6 +246,7 @@ export function useSudokuEngine() {
       solvedBoard,
       clearRelatedNotes,
       checkWinCondition,
+      notes,
     ]
   );
 
@@ -340,6 +343,7 @@ export function useSudokuEngine() {
     clearRelatedNotes,
     checkWinCondition,
     hintsAvailable,
+    notes,
   ]);
 
   const getRemainingCounts = useCallback(() => {

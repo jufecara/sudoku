@@ -25,6 +25,7 @@ export function useStats() {
     const savedStats = localStorage.getItem('sudoku-stats');
     if (savedStats) {
       try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setStats(JSON.parse(savedStats));
       } catch (e) {
         console.error('Error loading stats from localStorage', e);

@@ -9,7 +9,7 @@ import { SettingsScreen } from './components/screens/SettingsScreen';
 import { useUserSettings } from './hooks/useUserSettings';
 import { useStats } from './hooks/useStats';
 import { useTimer } from './hooks/useTimer';
-import { useSudokuEngine, MAX_MISTAKES } from './hooks/useSudokuEngine';
+import { useSudokuEngine, MAX_MISTAKES, type GameStateSnapshot } from './hooks/useSudokuEngine';
 import { useGamePersistence } from './hooks/useGamePersistence';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation';
 import { useTranslation } from './hooks/useTranslation';
@@ -31,6 +31,22 @@ interface AppContentProps {
   userSettings: ReturnType<typeof useUserSettings>;
 }
 
+export type StateToSave = {
+  view: 'play' | 'home' | 'stats' | 'settings';
+  difficulty: Difficulty;
+  initialBoard: number[][];
+  board: number[][];
+  solvedBoard: number[][];
+  notes: number[][][];
+  errors: boolean[][];
+  mistakes: number;
+  timer: number;
+  history: GameStateSnapshot[];
+  hasWon: boolean;
+  isGameOver: boolean;
+  hintsAvailable: number;
+};
+
 function AppContent({ userSettings }: AppContentProps) {
   const [view, setView] = useState<'home' | 'play' | 'stats' | 'settings'>('home');
   const [showDifficultySelect, setShowDifficultySelect] = useState(false);
@@ -45,7 +61,7 @@ function AppContent({ userSettings }: AppContentProps) {
   );
 
   // Auto-Save Persistence
-  const stateToSave = {
+  const stateToSave: StateToSave = {
     view,
     difficulty: engine.difficulty,
     initialBoard: engine.initialBoard,
