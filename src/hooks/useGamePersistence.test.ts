@@ -85,6 +85,7 @@ describe('useGamePersistence', () => {
   });
 
   it('handles corrupt saved game gracefully', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     localStorage.setItem('sudoku-saved-game', 'not-json');
     const restoreCallback = vi.fn();
 
@@ -98,5 +99,8 @@ describe('useGamePersistence', () => {
 
     expect(restoreCallback).not.toHaveBeenCalled();
     expect(localStorage.getItem('sudoku-saved-game')).toBeNull();
+
+    expect(consoleSpy).toHaveBeenCalledWith('Error resuming saved game:', expect.any(SyntaxError));
+    consoleSpy.mockRestore();
   });
 });

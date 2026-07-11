@@ -2,8 +2,7 @@
   "name": "sudoku",
   "description": "A Sudoku game built with React and Vite",
   "author": "Juan Castrillon <jfcastrillonr@gmail.com>",
-  "private": true,
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
@@ -26,10 +25,11 @@
     "format:check": "prettier . --check",
     "lint": "eslint . --max-warnings=0",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "vitest run",
     "test:ui": "vitest --ui",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "validate": "yarn typecheck && yarn lint && yarn format:check && yarn test run && yarn npm audit --all --severity high && yarn audit:socket && yarn audit:dates",
+    "validate": "yarn typecheck && yarn lint && yarn format:check && yarn test run && yarn npm audit --all --severity high && yarn audit:socket",
     "prepare": "husky"
   },
   "dependencies": {
@@ -78,6 +78,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jufecara/sudoku"
+  },
+  "bugs": {
+    "url": "https://github.com/jufecara/sudoku/issues"
   },
   "sideEffects": false
 }

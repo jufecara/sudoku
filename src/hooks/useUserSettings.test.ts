@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useUserSettings } from './useUserSettings';
 
@@ -86,9 +86,18 @@ describe('useUserSettings', () => {
   });
 
   it('handles corrupt localStorage gracefully', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
     localStorage.setItem('sudoku-user-settings', '{invalid json');
     const { result } = renderHook(() => useUserSettings());
     expect(result.current.theme).toBe('dark');
     expect(result.current.defaultDifficulty).toBe('medium');
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Error loading user settings from localStorage',
+      expect.any(SyntaxError)
+    );
+
+    consoleSpy.mockRestore();
   });
 });

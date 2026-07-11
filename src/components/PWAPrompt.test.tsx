@@ -1,28 +1,39 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest';
 import { screen, fireEvent, act } from '@testing-library/react';
 import { renderWithProviders } from '../test/test-utils';
+import type { Dispatch, SetStateAction } from 'react';
+import '@testing-library/jest-dom';
 
 vi.mock('virtual:pwa-register/react', () => ({
   useRegisterSW: vi.fn(),
 }));
 
 import { useRegisterSW } from 'virtual:pwa-register/react';
+import type { RegisterSWOptions } from 'virtual:pwa-register/react';
 
-let mockUpdateSW: ReturnType<typeof vi.fn>;
-let mockSetOfflineReady: ReturnType<typeof vi.fn>;
-let mockSetNeedRefresh: ReturnType<typeof vi.fn>;
+let mockUpdateSW: (reloadPage?: boolean) => Promise<void>;
+let mockSetOfflineReady: Mock<Dispatch<SetStateAction<boolean>>> = vi.fn();
+let mockSetNeedRefresh: Mock<Dispatch<SetStateAction<boolean>>> = vi.fn();
 
 const mockUseRegisterSW = vi.mocked(useRegisterSW);
+mockUseRegisterSW.mockImplementation((options?: RegisterSWOptions) => {
+  options?.onRegisteredSW?.('mock-url', undefined);
+  return {
+    offlineReady: [false, mockSetOfflineReady] as [boolean, Dispatch<SetStateAction<boolean>>],
+    needRefresh: [false, mockSetNeedRefresh] as [boolean, Dispatch<SetStateAction<boolean>>],
+    updateServiceWorker: mockUpdateSW,
+  };
+});
 
 const defaultReturn = () => ({
-  offlineReady: [false, mockSetOfflineReady] as [boolean, typeof mockSetOfflineReady],
-  needRefresh: [false, mockSetNeedRefresh] as [boolean, typeof mockSetNeedRefresh],
-  updateServiceWorker: mockUpdateSW,
+  offlineReady: [false, mockSetOfflineReady] as [boolean, Dispatch<SetStateAction<boolean>>],
+  needRefresh: [false, mockSetNeedRefresh] as [boolean, Dispatch<SetStateAction<boolean>>],
+  updateServiceWorker: mockUpdateSW as (reloadPage?: boolean) => Promise<void>,
 });
 
 beforeEach(() => {
   vi.clearAllMocks();
-  mockUpdateSW = vi.fn();
+  mockUpdateSW = vi.fn(async () => {});
   mockSetOfflineReady = vi.fn();
   mockSetNeedRefresh = vi.fn();
   mockUseRegisterSW.mockReturnValue(defaultReturn());
@@ -116,14 +127,10 @@ describe('PWAPrompt', () => {
 describe('onRegisteredSW callback', () => {
   it('returns early when registration is null', async () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-    mockUseRegisterSW.mockImplementation(
-      (options: {
-        onRegisteredSW?: (url: string, reg: ServiceWorkerRegistration | null) => void;
-      }) => {
-        options.onRegisteredSW?.('sw.js', null);
-        return defaultReturn();
-      }
-    );
+    mockUseRegisterSW.mockImplementation((options?: RegisterSWOptions) => {
+      options?.onRegisteredSW?.('sw.js', undefined);
+      return defaultReturn();
+    });
     const { PWAPrompt } = await import('./PWAPrompt');
     renderWithProviders(<PWAPrompt />);
     expect(logSpy).not.toHaveBeenCalled();
@@ -136,14 +143,10 @@ describe('onRegisteredSW callback', () => {
       update: vi.fn().mockResolvedValue(undefined),
     } as unknown as ServiceWorkerRegistration;
 
-    mockUseRegisterSW.mockImplementation(
-      (options: {
-        onRegisteredSW?: (url: string, reg: ServiceWorkerRegistration | null) => void;
-      }) => {
-        options.onRegisteredSW?.('sw.js', mockRegistration);
-        return defaultReturn();
-      }
-    );
+    mockUseRegisterSW.mockImplementation((options?: RegisterSWOptions) => {
+      options?.onRegisteredSW?.('sw.js', mockRegistration);
+      return defaultReturn();
+    });
     const { PWAPrompt } = await import('./PWAPrompt');
     renderWithProviders(<PWAPrompt />);
     expect(logSpy).toHaveBeenCalledWith('SW registrado con éxito: ', mockRegistration);
@@ -156,12 +159,10 @@ describe('onRegisterError callback', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const testError = new Error('SW registration failed');
 
-    mockUseRegisterSW.mockImplementation(
-      (options: { onRegisterError?: (error: Error) => void }) => {
-        options.onRegisterError?.(testError);
-        return defaultReturn();
-      }
-    );
+    mockUseRegisterSW.mockImplementation((options?: RegisterSWOptions) => {
+      options?.onRegisterError?.(testError);
+      return defaultReturn();
+    });
     const { PWAPrompt } = await import('./PWAPrompt');
     renderWithProviders(<PWAPrompt />);
     expect(errorSpy).toHaveBeenCalledWith('Error al registrar el SW: ', testError);
@@ -185,18 +186,15 @@ describe('checkForUpdate', () => {
   });
 
   it('calls update on visibility change when visible', async () => {
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     const mockRegistration = {
       update: vi.fn().mockResolvedValue(undefined),
     } as unknown as ServiceWorkerRegistration;
 
-    mockUseRegisterSW.mockImplementation(
-      (options: {
-        onRegisteredSW?: (url: string, reg: ServiceWorkerRegistration | null) => void;
-      }) => {
-        options.onRegisteredSW?.('sw.js', mockRegistration);
-        return defaultReturn();
-      }
-    );
+    mockUseRegisterSW.mockImplementation((options?: RegisterSWOptions) => {
+      options?.onRegisteredSW?.('sw.js', mockRegistration);
+      return defaultReturn();
+    });
     const { PWAPrompt } = await import('./PWAPrompt');
     renderWithProviders(<PWAPrompt />);
 
@@ -213,9 +211,16 @@ describe('checkForUpdate', () => {
       document.dispatchEvent(new Event('visibilitychange'));
     });
     expect(mockRegistration.update).toHaveBeenCalledTimes(4);
+    expect(logSpy).toHaveBeenCalledWith('SW registrado con éxito: ', mockRegistration);
+
+    await vi.waitFor(() => {
+      expect(logSpy).toHaveBeenCalledWith('SW registrado con éxito: ', mockRegistration);
+    });
+    logSpy.mockRestore();
   });
 
   it('skips update when visibilityState is hidden', async () => {
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     Object.defineProperty(document, 'visibilityState', {
       value: 'hidden',
       writable: true,
@@ -226,14 +231,10 @@ describe('checkForUpdate', () => {
       update: vi.fn().mockResolvedValue(undefined),
     } as unknown as ServiceWorkerRegistration;
 
-    mockUseRegisterSW.mockImplementation(
-      (options: {
-        onRegisteredSW?: (url: string, reg: ServiceWorkerRegistration | null) => void;
-      }) => {
-        options.onRegisteredSW?.('sw.js', mockRegistration);
-        return defaultReturn();
-      }
-    );
+    mockUseRegisterSW.mockImplementation((options?: RegisterSWOptions) => {
+      options?.onRegisteredSW?.('sw.js', mockRegistration);
+      return defaultReturn();
+    });
     const { PWAPrompt } = await import('./PWAPrompt');
     renderWithProviders(<PWAPrompt />);
 
@@ -241,23 +242,27 @@ describe('checkForUpdate', () => {
       document.dispatchEvent(new Event('visibilitychange'));
     });
     expect(mockRegistration.update).not.toHaveBeenCalled();
+
+    expect(logSpy).toHaveBeenCalledWith('SW registrado con éxito: ', mockRegistration);
+
+    await vi.waitFor(() => {
+      expect(logSpy).toHaveBeenCalledWith('SW registrado con éxito: ', mockRegistration);
+    });
+    logSpy.mockRestore();
   });
 
   it('logs error when update fails', async () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     const updateError = new Error('Network error');
     const mockRegistration = {
       update: vi.fn().mockRejectedValue(updateError),
     } as unknown as ServiceWorkerRegistration;
 
-    mockUseRegisterSW.mockImplementation(
-      (options: {
-        onRegisteredSW?: (url: string, reg: ServiceWorkerRegistration | null) => void;
-      }) => {
-        options.onRegisteredSW?.('sw.js', mockRegistration);
-        return defaultReturn();
-      }
-    );
+    mockUseRegisterSW.mockImplementation((options?: RegisterSWOptions) => {
+      options?.onRegisteredSW?.('sw.js', mockRegistration);
+      return defaultReturn();
+    });
     const { PWAPrompt } = await import('./PWAPrompt');
     renderWithProviders(<PWAPrompt />);
 
@@ -267,7 +272,14 @@ describe('checkForUpdate', () => {
 
     expect(mockRegistration.update).toHaveBeenCalled();
     expect(errorSpy).toHaveBeenCalledWith('Error checking for app updates: ', updateError);
+    expect(logSpy).toHaveBeenCalledWith('SW registrado con éxito: ', mockRegistration);
+
+    await vi.waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledWith('Error checking for app updates: ', expect.any(Error));
+      expect(logSpy).toHaveBeenCalledWith('SW registrado con éxito: ', mockRegistration);
+    });
     errorSpy.mockRestore();
+    logSpy.mockRestore();
   });
 
   it('cleans up event listeners and interval on unmount', async () => {
