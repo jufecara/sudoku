@@ -10,25 +10,25 @@
   --bg-card-hover: rgba(30, 41, 59, 0.6);
   --border-glass: rgba(255, 255, 255, 0.08);
   --border-glass-active: rgba(139, 92, 246, 0.4);
-  
+
   /* Text Colors */
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  
+
   /* Accent Colors (HSL tailored) */
-  --color-primary: hsl(263, 90%, 65%);       /* Indigo/Violet */
+  --color-primary: hsl(263, 90%, 65%); /* Indigo/Violet */
   --color-primary-hover: hsl(263, 90%, 72%);
   --color-primary-glow: rgba(139, 92, 246, 0.25);
-  
-  --color-success: hsl(142, 72%, 45%);       /* Emerald */
+
+  --color-success: hsl(142, 72%, 45%); /* Emerald */
   --color-success-bg: rgba(16, 185, 129, 0.1);
-  
-  --color-error: hsl(350, 89%, 60%);         /* Rose/Red */
+
+  --color-error: hsl(350, 89%, 60%); /* Rose/Red */
   --color-error-bg: rgba(244, 63, 94, 0.15);
-  
-  --color-warn: hsl(38, 92%, 50%);           /* Amber/Yellow */
-  --color-info: hsl(199, 89%, 48%);           /* Cyan */
+
+  --color-warn: hsl(38, 92%, 50%); /* Amber/Yellow */
+  --color-info: hsl(199, 89%, 48%); /* Cyan */
 
   /* Sudoku Specific Colors */
   --cell-bg-original: transparent;
@@ -54,21 +54,21 @@
 }
 
 /* Light Theme overrides */
-[data-theme="light"] {
+[data-theme='light'] {
   --bg-app: radial-gradient(circle at top, #f8fafc 0%, #e2e8f0 100%);
   --bg-card: rgba(255, 255, 255, 0.7);
   --bg-card-hover: rgba(255, 255, 255, 0.9);
   --border-glass: rgba(15, 23, 42, 0.08);
   --border-glass-active: rgba(99, 102, 241, 0.5);
-  
+
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #94a3b8;
-  
-  --color-primary: hsl(243, 75%, 59%);       /* Royal Blue/Indigo */
+
+  --color-primary: hsl(243, 75%, 59%); /* Royal Blue/Indigo */
   --color-primary-hover: hsl(243, 75%, 65%);
   --color-primary-glow: rgba(99, 102, 241, 0.2);
-  
+
   --cell-bg-original: transparent;
   --cell-text-original: #0f172a;
   --cell-text-user: hsl(243, 75%, 50%);
@@ -77,7 +77,7 @@
   --cell-bg-selected: rgba(99, 102, 241, 0.25);
   --cell-border-color: rgba(15, 23, 42, 0.06);
   --cell-border-thick: rgba(15, 23, 42, 0.2);
-  
+
   --shadow-premium: 0 0.5rem 2rem 0 rgba(15, 23, 42, 0.08);
 }
 
@@ -134,7 +134,9 @@ body {
   border: 0.0625rem solid var(--border-glass);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-premium);
-  transition: border-color var(--transition-normal), background var(--transition-normal);
+  transition:
+    border-color var(--transition-normal),
+    background var(--transition-normal);
 }
 
 .glass-panel:hover {
@@ -142,7 +144,10 @@ body {
 }
 
 /* Typography elements */
-h1, h2, h3, .font-display {
+h1,
+h2,
+h3,
+.font-display {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -183,7 +188,7 @@ h1, h2, h3, .font-display {
   -webkit-text-fill-color: transparent;
 }
 
-[data-theme="light"] .logo-title {
+[data-theme='light'] .logo-title {
   background: linear-gradient(135deg, #0f172a 30%, var(--text-muted) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -321,7 +326,26 @@ h1, h2, h3, .font-display {
   font-weight: 500;
   border-right: 0.0625rem solid var(--cell-border-color);
   border-bottom: 0.0625rem solid var(--cell-border-color);
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+/* Corner cells with rounded borders to match board */
+.sudoku-cell.selected:nth-child(1) {
+  border-top-left-radius: calc(var(--radius-md) * 0.75);
+}
+
+.sudoku-cell.selected:nth-child(9) {
+  border-top-right-radius: calc(var(--radius-md) * 0.75);
+}
+
+.sudoku-cell.selected:nth-child(73) {
+  border-bottom-left-radius: calc(var(--radius-md) * 0.75);
+}
+
+.sudoku-cell.selected:nth-child(81) {
+  border-bottom-right-radius: calc(var(--radius-md) * 0.75);
 }
 
 /* Corner cells with rounded borders to match board */
@@ -348,11 +372,11 @@ h1, h2, h3, .font-display {
 .sudoku-cell:nth-child(9n) {
   border-right: none;
 }
-.sudoku-cell:nth-child(n+19):nth-child(-n+27),
-.sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+.sudoku-cell:nth-child(n + 19):nth-child(-n + 27),
+.sudoku-cell:nth-child(n + 46):nth-child(-n + 54) {
   border-bottom: 0.125rem solid var(--cell-border-thick);
 }
-.sudoku-cell:nth-child(n+73) {
+.sudoku-cell:nth-child(n + 73) {
   border-bottom: none;
 }
 
@@ -540,7 +564,7 @@ h1, h2, h3, .font-display {
   transition: all var(--transition-fast);
 }
 
-[data-theme="light"] .numpad-btn-badge {
+[data-theme='light'] .numpad-btn-badge {
   background: rgba(15, 23, 42, 0.08);
 }
 
@@ -615,7 +639,7 @@ h1, h2, h3, .font-display {
   -webkit-text-fill-color: transparent;
 }
 
-[data-theme="light"] .hero-title {
+[data-theme='light'] .hero-title {
   background: linear-gradient(135deg, #0f172a 40%, var(--text-muted) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -847,8 +871,14 @@ h1, h2, h3, .font-display {
 }
 
 @keyframes slideUp {
-  from { transform: translateY(6.25rem); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(6.25rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .toast-message {
@@ -885,9 +915,15 @@ h1, h2, h3, .font-display {
 
 /* Micro-animations */
 @keyframes cellPop {
-  0% { transform: scale(0.9); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .pop-animation {
@@ -914,8 +950,12 @@ h1, h2, h3, .font-display {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .win-title {

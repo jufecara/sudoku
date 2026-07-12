@@ -19,7 +19,7 @@ export function useKeyboardNavigation({
   setSelectedCell,
   handleNumberInput,
   handleErase,
-  handleUndo
+  handleUndo,
 }: KeyboardNavigationProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -64,5 +64,14 @@ export function useKeyboardNavigation({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedCell, view, isGameOver, hasWon, handleNumberInput, handleErase, handleUndo, setSelectedCell]);
+  }, [
+    selectedCell,
+    view,
+    isGameOver,
+    hasWon,
+    handleNumberInput,
+    handleErase,
+    handleUndo,
+    setSelectedCell,
+  ]);
 }

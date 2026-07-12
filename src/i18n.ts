@@ -124,7 +124,8 @@ export const translations = {
     select: 'Seleccionar',
     back: 'Volver',
     gameOverTitle: 'Fin del Juego 😢',
-    gameOverMessage: (maxMistakes: number) => `Has cometido ${maxMistakes} errores. ¡Vuelve a intentarlo!`,
+    gameOverMessage: (maxMistakes: number) =>
+      `Has cometido ${maxMistakes} errores. ¡Vuelve a intentarlo!`,
     retry: 'Reintentar',
     mainMenu: 'Menú Principal',
     generalStats: 'Estadísticas Generales',
@@ -315,7 +316,7 @@ export const translations = {
   },
 };
 
-export type Translations = typeof translations['en'];
+export type Translations = (typeof translations)['en'];
 
 export const getTranslations = (locale: Locale): Translations => {
   return translations[locale] ?? translations.en;

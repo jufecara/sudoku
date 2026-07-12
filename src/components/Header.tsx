@@ -31,7 +31,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   // Format seconds to mm:ss
   const formatTime = (secs: number) => {
-    const m = Math.floor(secs / 60).toString().padStart(2, '0');
+    const m = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, '0');
     const s = (secs % 60).toString().padStart(2, '0');
     return `${m}:${s}`;
   };
@@ -51,16 +53,16 @@ export const Header: React.FC<HeaderProps> = ({
 
       {view === 'play' && (
         <div className="game-stats-hud">
-          <span className={`difficulty-badge difficulty-${difficulty}`}>
-            {difficultyLabel}
-          </span>
+          <span className={`difficulty-badge difficulty-${difficulty}`}>{difficultyLabel}</span>
           <div className="hud-item" title={t.header.elapsedTime}>
             <span>⏱️</span>
             <span>{formatTime(timer)}</span>
           </div>
           <div className="hud-item" title={t.header.mistakes}>
             <span>⚠️</span>
-            <span>{mistakes}/{maxMistakes}</span>
+            <span>
+              {mistakes}/{maxMistakes}
+            </span>
           </div>
         </div>
       )}

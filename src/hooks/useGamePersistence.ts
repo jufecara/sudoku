@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
+import type { StateToSave } from '../App';
 
 export function useGamePersistence(
-  stateToSave: any,
-  restoreCallback: (state: any) => void
+  stateToSave: StateToSave,
+  restoreCallback: (state: StateToSave) => void
 ) {
   const [hasSavedGame, setHasSavedGame] = useState(false);
 
   // Check if a saved game exists
   useEffect(() => {
     const saved = localStorage.getItem('sudoku-saved-game');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHasSavedGame(!!saved);
   }, [stateToSave.view, stateToSave.hasWon, stateToSave.isGameOver]);
 

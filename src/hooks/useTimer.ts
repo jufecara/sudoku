@@ -7,7 +7,7 @@ export function useTimer(isActive: boolean) {
   useEffect(() => {
     if (isActive) {
       timerIntervalRef.current = setInterval(() => {
-        setTimer((prev) => prev + 1);
+        setTimer(prev => prev + 1);
       }, 1000);
     } else {
       if (timerIntervalRef.current) {

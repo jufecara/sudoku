@@ -9,7 +9,7 @@ import { SettingsScreen } from './components/screens/SettingsScreen';
 import { useUserSettings } from './hooks/useUserSettings';
 import { useStats } from './hooks/useStats';
 import { useTimer } from './hooks/useTimer';
-import { useSudokuEngine, MAX_MISTAKES } from './hooks/useSudokuEngine';
+import { useSudokuEngine, MAX_MISTAKES, type GameStateSnapshot } from './hooks/useSudokuEngine';
 import { useGamePersistence } from './hooks/useGamePersistence';
 import { useKeyboardNavigation } from './hooks/useKeyboardNavigation';
 import { useTranslation } from './hooks/useTranslation';
@@ -31,21 +31,37 @@ interface AppContentProps {
   userSettings: ReturnType<typeof useUserSettings>;
 }
 
+export type StateToSave = {
+  view: 'play' | 'home' | 'stats' | 'settings';
+  difficulty: Difficulty;
+  initialBoard: number[][];
+  board: number[][];
+  solvedBoard: number[][];
+  notes: number[][][];
+  errors: boolean[][];
+  mistakes: number;
+  timer: number;
+  history: GameStateSnapshot[];
+  hasWon: boolean;
+  isGameOver: boolean;
+  hintsAvailable: number;
+};
+
 function AppContent({ userSettings }: AppContentProps) {
   const [view, setView] = useState<'home' | 'play' | 'stats' | 'settings'>('home');
   const [showDifficultySelect, setShowDifficultySelect] = useState(false);
   const { t } = useTranslation();
   const { theme, defaultDifficulty, toggleTheme } = userSettings;
   const { stats, incrementGamesPlayed, recordWin, resetStats } = useStats();
-  
+
   const engine = useSudokuEngine();
-  
+
   const { timer, resetTimer, setTimerValue } = useTimer(
     view === 'play' && !engine.hasWon && !engine.isGameOver
   );
 
   // Auto-Save Persistence
-  const stateToSave = {
+  const stateToSave: StateToSave = {
     view,
     difficulty: engine.difficulty,
     initialBoard: engine.initialBoard,
@@ -61,7 +77,7 @@ function AppContent({ userSettings }: AppContentProps) {
     hintsAvailable: engine.hintsAvailable,
   };
 
-  const { hasSavedGame, resumeSavedGame } = useGamePersistence(stateToSave, (parsed) => {
+  const { hasSavedGame, resumeSavedGame } = useGamePersistence(stateToSave, parsed => {
     engine.setDifficulty(parsed.difficulty);
     engine.setInitialBoard(parsed.initialBoard);
     engine.setBoard(parsed.board);
@@ -72,7 +88,7 @@ function AppContent({ userSettings }: AppContentProps) {
     setTimerValue(parsed.timer);
     engine.setHistory(parsed.history || []);
     engine.setHintsAvailable(parsed.hintsAvailable ?? 3);
-    
+
     engine.setSelectedCell(null);
     engine.setNotesMode(false);
     engine.setHasWon(false);
@@ -85,7 +101,7 @@ function AppContent({ userSettings }: AppContentProps) {
     if (engine.hasWon && !engine.isGameOver) {
       recordWin(engine.difficulty, timer);
     }
-  }, [engine.hasWon]);
+  }, [engine.hasWon, engine.difficulty, engine.isGameOver, recordWin, timer]);
 
   // Handle new game
   const handleStartNewGame = (diff: Difficulty) => {
@@ -168,13 +184,7 @@ function AppContent({ userSettings }: AppContentProps) {
         />
       )}
 
-      {view === 'stats' && (
-        <StatsScreen
-          stats={stats}
-          setView={setView}
-          resetStats={resetStats}
-        />
-      )}
+      {view === 'stats' && <StatsScreen stats={stats} setView={setView} resetStats={resetStats} />}
 
       {view === 'settings' && (
         <SettingsScreen

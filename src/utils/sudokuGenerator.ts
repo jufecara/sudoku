@@ -1,7 +1,7 @@
 export type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
 
 // Generates a fully solved Sudoku board
-const getSolvedBoard = (): number[][] => {
+export const getSolvedBoard = (): number[][] => {
   const board: number[][] = Array(9)
     .fill(null)
     .map(() => Array(9).fill(0));
@@ -99,9 +99,9 @@ export const generateSudoku = (
   difficulty: Difficulty
 ): { initialBoard: number[][]; solvedBoard: number[][] } => {
   const solvedBoard = getSolvedBoard();
-  
+
   // Clone to make initialBoard
-  const initialBoard = solvedBoard.map((row) => [...row]);
+  const initialBoard = solvedBoard.map(row => [...row]);
 
   // Determine cells to clear based on difficulty
   let cellsToRemove = 30; // Easy default

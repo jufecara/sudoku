@@ -30,11 +30,35 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const { t } = useTranslation();
 
   const menuItems: MenuItem[] = [
-    { label: t.continueGame, className: 'primary-btn', onClick: resumeSavedGame, show: hasSavedGame, text: t.continueGame },
-    { label: t.newGame, className: hasSavedGame ? 'secondary-btn' : 'primary-btn', onClick: () => startNewGame(defaultDifficulty), show: true, text: t.newGame },
-    { label: t.statistics, className: 'secondary-btn', onClick: () => setView('stats'), show: true, text: t.statistics },
-    { label: t.settings, className: 'secondary-btn', onClick: () => setView('settings'), show: true, text: t.settings },
-  ]
+    {
+      label: t.continueGame,
+      className: 'primary-btn',
+      onClick: resumeSavedGame,
+      show: hasSavedGame,
+      text: t.continueGame,
+    },
+    {
+      label: t.newGame,
+      className: hasSavedGame ? 'secondary-btn' : 'primary-btn',
+      onClick: () => startNewGame(defaultDifficulty),
+      show: true,
+      text: t.newGame,
+    },
+    {
+      label: t.statistics,
+      className: 'secondary-btn',
+      onClick: () => setView('stats'),
+      show: true,
+      text: t.statistics,
+    },
+    {
+      label: t.settings,
+      className: 'secondary-btn',
+      onClick: () => setView('settings'),
+      show: true,
+      text: t.settings,
+    },
+  ];
 
   return (
     <main className="home-screen">
@@ -45,19 +69,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       </section>
 
       <div className="menu-options">
-          {menuItems.map((item) => (
-              item.show && (
-                  <button
-                      key={item.label}
-                      className={item.className}
-                      onClick={item.onClick}
-                  >
-                      {item.text}
-                  </button>
-              )
-          ))}
+        {menuItems.map(
+          item =>
+            item.show && (
+              <button key={item.label} className={item.className} onClick={item.onClick}>
+                {item.text}
+              </button>
+            )
+        )}
       </div>
-      
+
       <span className="app-version" aria-label={`App version ${__APP_VERSION__}`}>
         v{__APP_VERSION__}
       </span>
