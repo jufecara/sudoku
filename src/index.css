@@ -348,6 +348,23 @@ h3,
   border-bottom-right-radius: calc(var(--radius-md) * 0.75);
 }
 
+/* Corner cells with rounded borders to match board */
+.sudoku-cell.selected:nth-child(1) {
+  border-top-left-radius: calc(var(--radius-md) * 0.75);
+}
+
+.sudoku-cell.selected:nth-child(9) {
+  border-top-right-radius: calc(var(--radius-md) * 0.75);
+}
+
+.sudoku-cell.selected:nth-child(73) {
+  border-bottom-left-radius: calc(var(--radius-md) * 0.75);
+}
+
+.sudoku-cell.selected:nth-child(81) {
+  border-bottom-right-radius: calc(var(--radius-md) * 0.75);
+}
+
 /* Thicker borders for 3x3 grids */
 .sudoku-cell:nth-child(3n) {
   border-right: 0.125rem solid var(--cell-border-thick);
