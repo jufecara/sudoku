@@ -16,7 +16,7 @@ const defaultProps = {
   initialBoard: emptyBoard(),
   selectedCell: null,
   notes: emptyNotes(),
-  errors: emptyBoard().map((r) => r.map(() => false)),
+  errors: emptyBoard().map(r => r.map(() => false)),
   onCellClick: vi.fn(),
   hasWon: false,
   onRestart: vi.fn(),
@@ -118,7 +118,7 @@ describe('SudokuBoard', () => {
   });
 
   it('marks error cells', () => {
-    const errors = emptyBoard().map((r) => r.map(() => false));
+    const errors = emptyBoard().map(r => r.map(() => false));
     errors[0][0] = true;
     renderWithProviders(<SudokuBoard {...defaultProps} errors={errors} />);
     expect(getCell(0, 0).classList.contains('error')).toBe(true);

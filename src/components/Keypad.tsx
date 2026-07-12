@@ -72,7 +72,7 @@ export const Keypad: React.FC<KeypadProps> = ({
 
       {/* Number entry grid (1-9) */}
       <div className="numpad">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => {
           const remaining = remainingCounts[num] ?? 9;
           const isDisabled = remaining <= 0;
           return (

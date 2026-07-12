@@ -77,7 +77,7 @@ function AppContent({ userSettings }: AppContentProps) {
     hintsAvailable: engine.hintsAvailable,
   };
 
-  const { hasSavedGame, resumeSavedGame } = useGamePersistence(stateToSave, (parsed) => {
+  const { hasSavedGame, resumeSavedGame } = useGamePersistence(stateToSave, parsed => {
     engine.setDifficulty(parsed.difficulty);
     engine.setInitialBoard(parsed.initialBoard);
     engine.setBoard(parsed.board);

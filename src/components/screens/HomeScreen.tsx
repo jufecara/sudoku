@@ -70,7 +70,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
       <div className="menu-options">
         {menuItems.map(
-          (item) =>
+          item =>
             item.show && (
               <button key={item.label} className={item.className} onClick={item.onClick}>
                 {item.text}

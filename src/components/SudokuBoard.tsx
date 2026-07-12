@@ -77,7 +77,7 @@ export const SudokuBoard: React.FC<SudokuBoardProps> = ({
                 ) : (
                   // Notes mode layout: 3x3 mini grid
                   <div className="notes-grid">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => {
                       const hasNote = notes[rIndex][cIndex]?.includes(num);
                       return (
                         <span key={num} className="note-num">

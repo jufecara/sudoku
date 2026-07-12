@@ -56,7 +56,7 @@ export const StatsScreen: React.FC<StatsScreenProps> = ({ stats, setView, resetS
           {t.bestTimes}
         </h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {(['easy', 'medium', 'hard', 'expert'] as Difficulty[]).map((diff) => (
+          {(['easy', 'medium', 'hard', 'expert'] as Difficulty[]).map(diff => (
             <div
               key={diff}
               style={{

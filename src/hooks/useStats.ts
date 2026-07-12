@@ -34,7 +34,7 @@ export function useStats() {
   }, []);
 
   const incrementGamesPlayed = () => {
-    setStats((prevStats) => {
+    setStats(prevStats => {
       const updatedStats = {
         ...prevStats,
         played: prevStats.played + 1,
@@ -45,7 +45,7 @@ export function useStats() {
   };
 
   const recordWin = (difficulty: Difficulty, timer: number) => {
-    setStats((prevStats) => {
+    setStats(prevStats => {
       const bestTime = prevStats.bestTimes[difficulty];
       const nextBestTime = bestTime === null ? timer : Math.min(bestTime, timer);
       const nextStats = {

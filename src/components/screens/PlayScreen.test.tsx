@@ -14,7 +14,7 @@ const defaultProps = {
   initialBoard: emptyBoard(),
   selectedCell: null,
   notes: Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => [] as number[])),
-  errors: emptyBoard().map((r) => r.map(() => false)),
+  errors: emptyBoard().map(r => r.map(() => false)),
   handleCellClick: vi.fn(),
   startNewGame: vi.fn(),
   difficulty: 'medium' as const,

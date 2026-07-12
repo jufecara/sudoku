@@ -101,7 +101,7 @@ export const generateSudoku = (
   const solvedBoard = getSolvedBoard();
 
   // Clone to make initialBoard
-  const initialBoard = solvedBoard.map((row) => [...row]);
+  const initialBoard = solvedBoard.map(row => [...row]);
 
   // Determine cells to clear based on difficulty
   let cellsToRemove = 30; // Easy default

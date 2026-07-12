@@ -13,7 +13,7 @@ export const PWAPrompt: React.FC = () => {
       return;
     }
 
-    registrationRef.current.update().catch((error) => {
+    registrationRef.current.update().catch(error => {
       console.error('Error checking for app updates: ', error);
     });
   }, []);

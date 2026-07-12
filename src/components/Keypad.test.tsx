@@ -101,10 +101,10 @@ describe('Keypad', () => {
     const remainingCounts = { 1: 9, 2: 9, 3: 0, 4: 9, 5: 9, 6: 9, 7: 9, 8: 9, 9: 9 };
     renderWithProviders(<Keypad {...defaultProps} remainingCounts={remainingCounts} />);
     const numpadBtns = Array.from(document.querySelectorAll('.numpad-btn'));
-    const btn3 = numpadBtns.find((b) => b.textContent?.startsWith('3'));
+    const btn3 = numpadBtns.find(b => b.textContent?.startsWith('3'));
     expect(btn3).toBeDisabled();
 
-    const btn1 = numpadBtns.find((b) => b.textContent?.startsWith('1'));
+    const btn1 = numpadBtns.find(b => b.textContent?.startsWith('1'));
     expect(btn1).not.toBeDisabled();
   });
 });

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { getSolvedBoard, isValidMove, generateSudoku } from './sudokuGenerator';
 
 function isValidBoard(board: number[][]): boolean {
-  if (board.length !== 9 || board.some((r) => r.length !== 9)) return false;
+  if (board.length !== 9 || board.some(r => r.length !== 9)) return false;
 
   for (let r = 0; r < 9; r++) {
     for (let c = 0; c < 9; c++) {
@@ -64,7 +64,7 @@ describe('getSolvedBoard', () => {
   it('returns a different board each call (randomized)', () => {
     const boards = Array.from({ length: 5 }, () => getSolvedBoard());
     // At least two should differ (extremely unlikely all 5 are identical)
-    const unique = new Set(boards.map((b) => JSON.stringify(b)));
+    const unique = new Set(boards.map(b => JSON.stringify(b)));
     expect(unique.size).toBeGreaterThan(1);
   });
 
@@ -157,32 +157,32 @@ describe('generateSudoku', () => {
 
   it('easy difficulty has exactly 49 clues (32 removed)', () => {
     const { initialBoard } = generateSudoku('easy');
-    const clues = initialBoard.flat().filter((v) => v !== 0).length;
+    const clues = initialBoard.flat().filter(v => v !== 0).length;
     expect(clues).toBe(49);
   });
 
   it('medium difficulty has exactly 39 clues (42 removed)', () => {
     const { initialBoard } = generateSudoku('medium');
-    const clues = initialBoard.flat().filter((v) => v !== 0).length;
+    const clues = initialBoard.flat().filter(v => v !== 0).length;
     expect(clues).toBe(39);
   });
 
   it('hard difficulty has exactly 29 clues (52 removed)', () => {
     const { initialBoard } = generateSudoku('hard');
-    const clues = initialBoard.flat().filter((v) => v !== 0).length;
+    const clues = initialBoard.flat().filter(v => v !== 0).length;
     expect(clues).toBe(29);
   });
 
   it('expert difficulty has exactly 21 clues (60 removed)', () => {
     const { initialBoard } = generateSudoku('expert');
-    const clues = initialBoard.flat().filter((v) => v !== 0).length;
+    const clues = initialBoard.flat().filter(v => v !== 0).length;
     expect(clues).toBe(21);
   });
 
   it('solvedBoard is different from initialBoard (has some zeros)', () => {
     const { initialBoard, solvedBoard } = generateSudoku('medium');
     expect(initialBoard).not.toEqual(solvedBoard);
-    expect(initialBoard.flat().some((v) => v === 0)).toBe(true);
+    expect(initialBoard.flat().some(v => v === 0)).toBe(true);
   });
 
   it('initialBoard and solvedBoard are not the same reference', () => {
@@ -201,10 +201,10 @@ describe('generateSudoku', () => {
   it('expert removes more cells than easy', () => {
     const easyClues = generateSudoku('easy')
       .initialBoard.flat()
-      .filter((v) => v !== 0).length;
+      .filter(v => v !== 0).length;
     const expertClues = generateSudoku('expert')
       .initialBoard.flat()
-      .filter((v) => v !== 0).length;
+      .filter(v => v !== 0).length;
     expect(expertClues).toBeLessThan(easyClues);
   });
 });

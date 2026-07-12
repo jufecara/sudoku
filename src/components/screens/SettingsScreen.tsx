@@ -40,7 +40,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <h3 className="setting-label font-display">{t.languageLabel}</h3>
           </div>
           <div className="segmented-control" role="radiogroup" aria-label={t.languageLabel}>
-            {locales.map((locale) => (
+            {locales.map(locale => (
               <button
                 key={locale}
                 className={locale === language ? 'segment-btn active' : 'segment-btn'}
@@ -60,7 +60,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <p className="setting-helper">{t.defaultLevelHelp}</p>
           </div>
           <div className="segmented-control" role="radiogroup" aria-label="Nivel predeterminado">
-            {(['easy', 'medium', 'hard', 'expert'] as Difficulty[]).map((difficulty) => (
+            {(['easy', 'medium', 'hard', 'expert'] as Difficulty[]).map(difficulty => (
               <button
                 key={difficulty}
                 className={difficulty === defaultDifficulty ? 'segment-btn active' : 'segment-btn'}
