@@ -27,17 +27,18 @@ sudoku is a TypeScript library for browser-first Sudoku board recognition with O
 
 ### Quality Requirements
 
+- All code must pass `npm run audit`
 - All code must pass `npm run lint`
 - All code must pass `npm run format:check`
 - All code must pass `npm run typecheck`
 - All tests must pass `npm test`
-- Pre-commit hooks enforce linting/formatting
+- Pre-commit hooks enforce security audit, linting, and formatting
 
 ### Security Rules
 
 - Use `npm install --save-exact <package>` for exact versions
 - Commit both package.json and package-lock.json together
-- Use `--no-verify` when committing dependency changes
+- Use `--no-verify` when committing dependency changes only when necessary
 - Never bypass npm audit without justification
 
 ### File Organization
@@ -55,11 +56,12 @@ Format: `<type>: <description>`
 
 ### Before Committing
 
-1. Run `npm run lint` (or let pre-commit handle it)
-2. Run `npm run format` (or let pre-commit handle it)
-3. Run `npm run typecheck`
-4. Run `npm test`
-5. Write conventional commit message
+1. Run `npm run audit` (or let pre-commit handle it)
+2. Run `npm run lint` (or let pre-commit handle it)
+3. Run `npm run format` (or let pre-commit handle it)
+4. Run `npm run typecheck`
+5. Run `npm test`
+6. Write conventional commit message
 
 ## Human Contributors
 

@@ -28,6 +28,11 @@ npm run dev
 
 Abre `http://localhost:5173` para ver la aplicación en el navegador.
 
+## Seguridad y flujos de contribución
+
+- Este proyecto ejecuta un `npm audit --audit-level=high` en los hooks de pre-commit y en el workflow de PR para `dev`.
+- Dependabot PRs se crean hacia `dev` y deben pasar la validación de CI antes de fusionarse.
+
 ## Build de producción
 
 ```bash
