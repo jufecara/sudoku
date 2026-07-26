@@ -11,7 +11,7 @@ Sudoku Premium es una aplicación web construida con React, TypeScript y Vite. E
 
 ## Requisitos
 
-- Node.js 20.19+ o 22.12+
+- Node.js 24 LTS o superior
 - npm
 
 ## Instalación
