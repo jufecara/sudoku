@@ -13,9 +13,9 @@ updates:
       - dependency-type: 'all'
     # Ignore some dependencies if needed
     # ignore:
-      # Add dependencies to ignore here if needed
-      # - dependency-name: "example-package"
-      #   versions: ["1.x"]
+    # Add dependencies to ignore here if needed
+    # - dependency-name: "example-package"
+    #   versions: ["1.x"]
     # Labels for dependabot PRs
     labels:
       - 'dependencies'
