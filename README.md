@@ -1,64 +1,64 @@
 # Sudoku Premium
 
-Sudoku Premium es una aplicación web construida con React, TypeScript y Vite. Está diseñada como una PWA ligera que se puede desplegar en GitHub Pages.
+Sudoku Premium is a web application built with React, TypeScript, and Vite. It is designed as a lightweight PWA that can be deployed to GitHub Pages.
 
-## Características
+## Features
 
-- Juego de Sudoku interactivo
-- Interfaz React moderna
-- Configuración de PWA con `vite-plugin-pwa`
-- Construcción con Vite y despliegue en GitHub Pages
+- Interactive Sudoku gameplay
+- Modern React interface
+- PWA configuration with `vite-plugin-pwa`
+- Build with Vite and deployment to GitHub Pages
 
-## Requisitos
+## Requirements
 
-- Node.js 24 LTS o superior
+- Node.js 24 LTS or newer
 - npm
 
-## Instalación
+## Installation
 
 ```bash
 npm install
 ```
 
-## Desarrollo
+## Development
 
 ```bash
 npm run dev
 ```
 
-Abre `http://localhost:5173` para ver la aplicación en el navegador.
+Open `http://localhost:5173` to view the application in your browser.
 
-## Seguridad y flujos de contribución
+## Security and contribution flow
 
-- Este proyecto ejecuta un `npm audit --audit-level=high` en los hooks de pre-commit y en el workflow de PR para `dev`.
-- Dependabot PRs se crean hacia `dev` y deben pasar la validación de CI antes de fusionarse.
-- Consulta la política de seguridad en [SECURITY.md](SECURITY.md) para reportar vulnerabilidades y conocer las expectativas de seguridad del proyecto.
-- Usa [`.env.example`](.env.example) como base para tus variables locales y no subas secretos al repositorio.
+- This project runs `npm audit --audit-level=high` in the pre-commit hooks and in the PR workflow for `dev`.
+- Dependabot PRs target `dev` and must pass CI validation before merge.
+- Review the security policy in [SECURITY.md](SECURITY.md) to report vulnerabilities and understand the project’s security expectations.
+- Use [`.env.example`](.env.example) as the basis for your local environment variables and do not commit secrets to the repository.
 
-## Build de producción
+## Production build
 
 ```bash
 npm run build
 ```
 
-## Vista previa del build
+## Build preview
 
 ```bash
 npm run preview
 ```
 
-## Despliegue en GitHub Pages
+## GitHub Pages deployment
 
-Este repositorio está configurado para desplegar automáticamente en GitHub Pages mediante GitHub Actions.
+This repository is configured to deploy automatically to GitHub Pages through GitHub Actions.
 
-Asegúrate de tener el workflow en `.github/workflows/static.yml` y empuja los cambios a la rama `main`.
+Make sure the workflow exists in `.github/workflows/static.yml` and push your changes to the `main` branch.
 
-## Notas
+## Notes
 
-- El archivo `vite.config.ts` usa `base: './'` para que los recursos funcionen correctamente cuando se publica en GitHub Pages.
-- Las rutas en `index.html` están configuradas con rutas relativas para evitar errores `404` al cargar `manifest.webmanifest` y `src/main.tsx`.
+- The `vite.config.ts` file uses `base: './'` so resources work correctly when published to GitHub Pages.
+- The routes in `index.html` are configured with relative paths to avoid `404` errors when loading `manifest.webmanifest` and `src/main.tsx`.
 
-## Dependencias principales
+## Main dependencies
 
 - React
 - React DOM
@@ -67,10 +67,10 @@ Asegúrate de tener el workflow en `.github/workflows/static.yml` y empuja los c
 - `@vitejs/plugin-react`
 - `vite-plugin-pwa`
 
-## Estructura del proyecto
+## Project structure
 
-- `src/` — código fuente de la aplicación
-- `public/` — activos estáticos adicionales
-- `.github/workflows/` — configuración de GitHub Actions
-- `vite.config.ts` — configuración de Vite
-- `README.md` — documentación del proyecto
+- `src/` — application source code
+- `public/` — additional static assets
+- `.github/workflows/` — GitHub Actions configuration
+- `vite.config.ts` — Vite configuration
+- `README.md` — project documentation
