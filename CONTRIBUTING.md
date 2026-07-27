@@ -40,6 +40,8 @@ sudoku is a TypeScript library for browser-first Sudoku board recognition with O
 - Commit both package.json and package-lock.json together
 - Use `--no-verify` when committing dependency changes only when necessary
 - Never bypass npm audit without justification
+- Review [SECURITY.md](SECURITY.md) before reporting a vulnerability or handling a security issue
+- Copy [`.env.example`](.env.example) to a local environment file and keep secrets out of the repository
 
 ### File Organization
 

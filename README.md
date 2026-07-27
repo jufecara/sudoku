@@ -32,6 +32,8 @@ Abre `http://localhost:5173` para ver la aplicación en el navegador.
 
 - Este proyecto ejecuta un `npm audit --audit-level=high` en los hooks de pre-commit y en el workflow de PR para `dev`.
 - Dependabot PRs se crean hacia `dev` y deben pasar la validación de CI antes de fusionarse.
+- Consulta la política de seguridad en [SECURITY.md](SECURITY.md) para reportar vulnerabilidades y conocer las expectativas de seguridad del proyecto.
+- Usa [`.env.example`](.env.example) como base para tus variables locales y no subas secretos al repositorio.
 
 ## Build de producción
 

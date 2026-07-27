@@ -57,6 +57,12 @@ public/               # PWA icons (192x192, 512x512 PNG)
 3. When adding icons or modifying the manifest, verify with Lighthouse (PWA audit)
 4. Main branch: `main`; features on `feat/<name>`; do not merge without a green build
 
+## Security and repository guardrails
+
+- Review [docs/specs/security-policy.md](docs/specs/security-policy.md) before changing dependencies, workflows, environment handling, or the app shell.
+- Preserve the current security baseline, including audit enforcement, CSP rules, and dependency automation.
+- Do not commit secrets or local environment files, and use the existing project validation commands before finishing work.
+
 ## Do NOT touch
 
 - `public/` — icons already exported at the correct sizes
