@@ -1,5 +1,8 @@
 # Security Policy and Guardrails
 
+**Status:** Current implementation baseline
+**Related specifications:** [architecture](architecture-spec.md), [data and privacy](data-privacy-spec.md), and [quality and release](quality-release-spec.md)
+
 This document is a repository-level specification for AI agents and contributors. It should be treated as mandatory guidance when making changes to this project.
 
 ## Core principles
@@ -36,6 +39,14 @@ Before considering a task complete, verify the following whenever relevant:
 - Preserve the existing Content Security Policy and avoid weakening it when editing the app shell.
 - Do not introduce third-party scripts or remote resources without justification and review.
 - Avoid exposing sensitive data in logs, error messages, or client-side state.
+
+## Current control baseline
+
+- The app is a static, same-origin PWA with no backend API, account system, or runtime third-party script.
+- `index.html` defines a Content Security Policy that restricts default, script, connection, manifest, object, base, and frame sources. Google Fonts is the only permitted external style/font origin.
+- The PWA uses local manifest icons and generated service-worker assets; new remote resources require explicit security, privacy, and CSP review.
+- Browser storage holds only game state, preferences, and aggregated local statistics. It MUST NOT hold credentials, tokens, or secrets.
+- GitHub Actions uses explicit minimal permissions for the Pages workflow and CodeQL analysis, and validates code before deployment.
 
 ## Repository workflow rules
 
