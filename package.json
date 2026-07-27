@@ -1,7 +1,7 @@
 {
   "name": "sudoku",
   "description": "A Sudoku game built with React and Vite",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "type": "module",
   "author": {
     "name": "Juan Castrillon",
